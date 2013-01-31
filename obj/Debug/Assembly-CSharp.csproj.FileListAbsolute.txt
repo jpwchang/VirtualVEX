@@ -1,0 +1,12 @@
+C:\Users\jonathan\Documents\vv_a3_source\VEXsimulator\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
+C:\Users\jonathan\Documents\vv_a3_source\VEXsimulator\Temp\bin\Debug\Assembly-CSharp.XML
+C:\Users\jonathan\Documents\vv_a3_source\VEXsimulator\Temp\bin\Debug\Assembly-CSharp.dll
+C:\Users\jonathan\Documents\vv_a3_source\VEXsimulator\Temp\bin\Debug\Assembly-CSharp.pdb
+C:\Users\jonathan\Documents\vv_a3_source\VEXsimulator\Temp\bin\Debug\main.dll
+C:\Users\jonathan\Documents\vv_a3_source\VEXsimulator\Temp\bin\Debug\MyAssembly.dll
+C:\Users\jonathan\Documents\vv_a3_source\VEXsimulator\Temp\bin\Debug\UnityEditor.dll
+C:\Users\jonathan\Documents\vv_a3_source\VEXsimulator\Temp\bin\Debug\UnityEngine.dll
+C:\Users\jonathan\Documents\vv_a3_source\VEXsimulator\Temp\bin\Debug\nunit.framework.dll
+C:\Users\jonathan\Documents\vv_a3_source\VEXsimulator\Temp\bin\Debug\Assembly-CSharp-firstpass.pdb
+C:\Users\jonathan\Documents\vv_a3_source\VEXsimulator\obj\Debug\Assembly-CSharp.dll
+C:\Users\jonathan\Documents\vv_a3_source\VEXsimulator\obj\Debug\Assembly-CSharp.pdb

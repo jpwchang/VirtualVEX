@@ -1,0 +1,19 @@
+fileFormatVersion: 2
+guid: f5180039180ad574595eee683cb045c9
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - logo_: {fileID: 2800000, guid: b8551bae53aa38b4388ee58f3e13a365, type: 3}
+  - contrib_: {fileID: 2800000, guid: a035821259e9068478b04395368395ae, type: 3}
+  - bg1610: {fileID: 2800000, guid: 88f24f19cb7f6d94c9348d3b26419ac8, type: 3}
+  - bg43: {fileID: 2800000, guid: d3a81739b3d8e084098bf90d21c56f6e, type: 3}
+  - bg54: {fileID: 2800000, guid: 90dda16af9ef6a74b996296dfaaf85a5, type: 3}
+  - bg169: {fileID: 2800000, guid: bf17739b1140a334eb7e7858df86c3ad, type: 3}
+  - aboutScreen: {fileID: 2800000, guid: b8551bae53aa38b4388ee58f3e13a365, type: 3}
+  - tracker: {instanceID: 0}
+  - skin: {fileID: 11400000, guid: 00c5827bef6972c42888b7aea50684fb, type: 2}
+  - controlSkin: {fileID: 11400000, guid: 512adee28fc30f94ca587d3d56b3df0f, type: 2}
+  - transparent: {fileID: 11400000, guid: 610037e5b804bc044ad4dd153f553a02, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 

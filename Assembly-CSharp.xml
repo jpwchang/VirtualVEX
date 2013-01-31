@@ -1,0 +1,113 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Assembly-CSharp</name>
+    </assembly>
+    <members>
+        <member name="T:NZIntakeScript">
+            <summary>
+            Controls the horizontal roller intake
+            </summary>
+        </member>
+        <member name="T:Main_NZBot">
+            <summary>
+            Subclass of AssemblyLoader that uses the loaded code to operate the Horizontal Roller ("New Zealand") bot
+            </summary>
+        </member>
+        <member name="T:AssemblyLoader">
+            <summary>
+            Base class for all robots in VirtualVEX. AssemblyLoader handles the loading of user code
+            from a precompiled DLL file. This loaded code is used in the control of all inherited classes.
+            Other functions common to all robots are also implemented in this base class. These include
+            a timer function that keeps track of the current time and, if applicable, stops the robot
+            at the time limit. The Physics Window and User Code window are also implemented here.
+            AssemblyLoader also contains definitions for the VirtualVEX developer API functions. These
+            functions allow developers to easily configure their own robots.
+            </summary>
+        </member>
+        <member name="M:AssemblyLoader.setMotor(UnityEngine.WheelCollider,System.Single)">
+            <summary>
+            Assign a given power level to a wheel.
+            This allows you to move the robot's drive base.
+            A common use for this method is in driver control, passing in a joystick axis
+            as the power level.
+            This method can only be used on wheel colliders (usually found on drivebases).
+            For a version that applies to other motor placements, see the overloaded version:
+            setMotor(GameObject, float, int).
+            </summary>
+            <param name="motor">Which motor to apply this to</param>
+            <param name="powerLevel">The power to supply to this motor</param>
+        </member>
+        <member name="M:AssemblyLoader.setMotor(UnityEngine.GameObject,System.Single,System.Int32)">
+            <summary>
+            Assign a given power level to a motor on the virtual robot.
+            This allows components of your robot other than the drivebase to move.
+            There are no actual simulated motors on any part of a VirtualVEX simulated robot
+            other than the drivebase. Instead, this method simulates motor power by directly
+            adding a force to the given component, or GameObject.
+            As a result, you must specify a movement type. This tells the program what
+            direction the component will be moving in and whether the motion is linear or rotational.
+            There are 6 available movement types:
+            <para>DIRECT_VERTICAL: Rotational, up and down, facing forward (or backward). Perfect for arms.</para>
+            <para>DIRECT_HORIZONTAL: Rotational, side to side. Perfect for claws.</para>
+            <para>DIRECT_SIDEWAYS: Rotational, up and down, facing left or right.</para>
+            <para>LINEAR_VERTICAL: Straight up and down.</para>
+            <para>LINEAR_HORIZONTAL: Straight forward and backward.</para>
+            <para>LINEAR_SIDEWAYS: Straight left and right.</para>
+            All directions are relative to the robot. The default direction is DIRECT_VERTICAL.
+            </summary>
+            <param name="motor">Which motor to apply this to</param>
+            <param name="powerLevel">The power to supply to this motor</param>
+            <param name="applyMode">The direction this power should be applied in</param>
+        </member>
+        <member name="M:AssemblyLoader.setMotors(UnityEngine.WheelCollider,UnityEngine.WheelCollider,System.Single)">
+            <summary>
+            Set two drive motors to the same power level.
+            Useful for 4-wheel drivebases.
+            </summary>
+            <param name="motor1">The first affected motor</param>
+            <param name="motor2">The second affected motor</param>
+            <param name="powerLevel">The power to supply to both motors</param>
+        </member>
+        <member name="T:Main_Clawbot">
+            <summary>
+            Subclass of AssemblyLoader that uses the loaded code to operate the Clawbot
+            </summary>
+        </member>
+        <member name="T:IntakeScript">
+            <summary>
+            Controls the tank tread (conveyor) intake
+            </summary>
+        </member>
+        <member name="T:Menu">
+            <summary>
+            Provides all Main Menu functions and draws the actual menu GUI
+            </summary>
+        </member>
+        <member name="T:Main_ConveyorBot">
+            <summary>
+            Subclass of AssemblyLoader that uses the loaded code to operate the ConveyorBot
+            </summary>
+        </member>
+        <member name="T:Main_VConveyorBot">
+            <summary>
+            Subclass of AssemblyLoader that uses the loaded code to operate the Vertical ConveyorBot
+            </summary>
+        </member>
+        <member name="T:VIntakeScript">
+            <summary>
+            Controls the vertical roller intake
+            </summary>
+        </member>
+        <member name="T:WWWAssembly">
+            <summary>
+            Class to represent the Assembly. Originally written by Emil Johanssen.
+            </summary>
+        </member>
+        <member name="T:Main_Dbot">
+            <summary>
+            Subclass of AssemblyLoader that uses the loaded code to operate the Vertical Roller Bot
+            </summary>
+        </member>
+    </members>
+</doc>
