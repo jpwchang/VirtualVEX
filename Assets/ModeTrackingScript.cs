@@ -2,6 +2,9 @@ using UnityEngine;
 using System.Collections;
 using System.Diagnostics;
 
+/// <summary>
+/// Global object which tracks and controls run-time user options. Also draws non-game-specific GUI elements
+/// </summary>
 public class ModeTrackingScript : MonoBehaviour {
     public int mode = 0;
     public int robotType = 0;
@@ -20,6 +23,8 @@ public class ModeTrackingScript : MonoBehaviour {
     private bool showViewMenu = false;
     private bool showHelpMenu = false;
     private bool showAbtWindow = false;
+    private int viewMode_ = 0;
+    private string[] viewModes_ = new string[] { "Match View", "Strategic View" };
     private bool statusBar_ = true;
     private bool showMenu_ = false;
     private int curMenu = 0;
@@ -101,6 +106,10 @@ public class ModeTrackingScript : MonoBehaviour {
     {
         get { return statusBar_; }
     }
+    public int getViewMode
+    {
+        get { return viewMode_; }
+    }
 	// Use this for initialization
 	void Start () {
         DontDestroyOnLoad(transform.gameObject);
@@ -171,7 +180,7 @@ public class ModeTrackingScript : MonoBehaviour {
                 }
                 case 3:
                 {
-                    GUI.Box(new Rect(100, 22, 125, 160), "", "menudrop");
+                    GUI.Box(new Rect(100, 22, 125, 190), "", "menudrop");
                     cameraControls = GUI.Toggle(new Rect(100, 22, 125, 20), cameraControls, new GUIContent(" Camera Controls", "Toggle visibility of camera position controls"), "menutoggle");
                     timer = GUI.Toggle(new Rect(100, 42, 125, 20), timer, new GUIContent(" Timer", "Toggle visibility of game timer"), "menutoggle");
                     score = GUI.Toggle(new Rect(100, 62, 125, 20), score, new GUIContent(" Score", "Toggle scorekeeper"), "menutoggle");
@@ -179,6 +188,8 @@ public class ModeTrackingScript : MonoBehaviour {
                     physics = GUI.Toggle(new Rect(100, 102, 125, 20), physics, new GUIContent(" Physics Window", "Show or hide robot physics statistics"), "menutoggle");
                     matchloads = GUI.Toggle(new Rect(100, 122, 125, 20), matchloads, new GUIContent(" Match Loads", "Toggle visibility of Match Loads buttons"), "menutoggle");
                     statusBar_ = GUI.Toggle(new Rect(100, 142, 125, 20), statusBar_, new GUIContent(" Status Bar", "Show or hide the Status Bar"), "menutoggle");
+                    GUI.Box(new Rect(100, 162, 125, 10), "", "separator");
+                    viewMode_ = GUI.SelectionGrid(new Rect(100, 172, 125, 40), viewMode_, viewModes_, 1, "menutoggle");
                     break;
                 }
                 case 4:
