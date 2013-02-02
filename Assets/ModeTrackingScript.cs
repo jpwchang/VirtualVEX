@@ -13,7 +13,6 @@ public class ModeTrackingScript : MonoBehaviour {
     private bool gates = true;
     private bool cameraControls = true;
     private bool timer = true;
-    private bool userCode = true;
     private bool physics = false;
     private bool useconsole = false;
     private bool showFileMenu = false;
@@ -77,13 +76,6 @@ public class ModeTrackingScript : MonoBehaviour {
         get
         {
             return timer;
-        }
-    }
-    public bool showUC
-    {
-        get
-        {
-            return userCode;
         }
     }
     public bool showPhysics
@@ -171,9 +163,9 @@ public class ModeTrackingScript : MonoBehaviour {
                         else
                             fieldScript.unpause(null);
                     }
-                    if (GUI.Button(new Rect(30, 42, 125, 20), "        Stop timer", "dropdownitem"))
+                    if (GUI.Button(new Rect(30, 42, 125, 20), new GUIContent("        Stop timer",  "Stop the match timer"), "dropdownitem"))
                         fieldScript.notime(null);
-                    if (GUI.Button(new Rect(30, 62, 125, 20), "        Reset", "dropdownitem"))
+                    if (GUI.Button(new Rect(30, 62, 125, 20), new GUIContent("        Reset", "Reset the simulation to start parameters"), "dropdownitem"))
                         fieldScript.reset(null);
                     break;
                 }
@@ -186,16 +178,15 @@ public class ModeTrackingScript : MonoBehaviour {
                     useconsole = GUI.Toggle(new Rect(100, 82, 125, 20), useconsole, new GUIContent(" Console", "Show or hide the command line window"), "menutoggle");
                     physics = GUI.Toggle(new Rect(100, 102, 125, 20), physics, new GUIContent(" Physics Window", "Show or hide robot physics statistics"), "menutoggle");
                     matchloads = GUI.Toggle(new Rect(100, 122, 125, 20), matchloads, new GUIContent(" Match Loads", "Toggle visibility of Match Loads buttons"), "menutoggle");
-                    userCode = GUI.Toggle(new Rect(100, 142, 125, 20), userCode, new GUIContent(" User Code Status", "Toggle visibility of the User Code status monitor"), "menutoggle");
-                    statusBar_ = GUI.Toggle(new Rect(100, 162, 125, 20), statusBar_, new GUIContent(" Status Bar", "Show or hide the Status Bar"), "menutoggle");
+                    statusBar_ = GUI.Toggle(new Rect(100, 142, 125, 20), statusBar_, new GUIContent(" Status Bar", "Show or hide the Status Bar"), "menutoggle");
                     break;
                 }
                 case 4:
                 {
                     GUI.Box(new Rect(140, 22, 125, 40), "", "menudrop");
-                    if (GUI.Button(new Rect(140, 22, 125, 20), "        Documentation", "dropdownitem"))
+                    if (GUI.Button(new Rect(140, 22, 125, 20), new GUIContent("        Documentation", "View help on how to use VirtualVEX (This will open in your browser)"), "dropdownitem"))
                         Process.Start("https://sites.google.com/site/virtualvex/knowledge-base"); ;
-                    if (GUI.Button(new Rect(140, 42, 125, 20), "        About", "dropdownitem"))
+                    if (GUI.Button(new Rect(140, 42, 125, 20), new GUIContent("        About", "About VirtualVEX"), "dropdownitem"))
                     {
                         showAbtWindow = true;
                         curMenu = 0;
