@@ -46,6 +46,11 @@ public class Menu : MonoBehaviour {
     private const int GAME_GATEWAY = 0;
     private const int GAME_SACK = 1;
 
+    /// <summary>
+    /// Custom lightweight absolute value function
+    /// </summary>
+    /// <param name="num">The input number</param>
+    /// <returns>Absolute value of the input</returns>
     private double abs(double num)
     {
         if(num < 0)
@@ -53,6 +58,10 @@ public class Menu : MonoBehaviour {
         return num;
     }
 
+    /// <summary>
+    /// Access the update server and initialize GUI positions
+    /// </summary>
+    /// <returns></returns>
     IEnumerator Start()
     {
         curGameType = GAME_SACK;
@@ -69,6 +78,9 @@ public class Menu : MonoBehaviour {
         showSettingsWindow = false;
     }
 
+    /// <summary>
+    /// Main loop
+    /// </summary>
     void Update()
     {
         if (curGameType == GAME_SACK)
@@ -83,6 +95,9 @@ public class Menu : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Draw the Menu GUI
+    /// </summary>
     void OnGUI () {
         GUI.skin = transparent;
         double aspectRatio = (double)Screen.width / (double)Screen.height;
@@ -195,6 +210,10 @@ public class Menu : MonoBehaviour {
 	        Application.Quit();
     }
 
+    /// <summary>
+    /// Access the update server
+    /// </summary>
+    /// <returns></returns>
     IEnumerator loadWWW()
     {
         updater = new WWW("https://sites.google.com/site/virtualvex/project-updates/onelastrally/currentversion.txt");
@@ -202,6 +221,10 @@ public class Menu : MonoBehaviour {
         getVersion = updater.text;
     }
 
+    /// <summary>
+    /// Show the about window
+    /// </summary>
+    /// <param name="windowID"></param>
     void abtFunction(int windowID)
     {
         GUI.Box(new Rect(5, 23, 440, 170), "", "transparent");
@@ -215,6 +238,10 @@ public class Menu : MonoBehaviour {
         GUI.DragWindow(new Rect(0, 0, 10000, 20));
     }
 
+    /// <summary>
+    /// Check current version against version on server to determine if there are updates
+    /// </summary>
+    /// <param name="windowID"></param>
     void checkForUpdate(int windowID)
     {
         string windowText = "Attempting to connect to update server, try again later.";
@@ -237,6 +264,10 @@ public class Menu : MonoBehaviour {
         GUI.DragWindow(new Rect(0, 0, 10000, 20));
     }
 
+    /// <summary>
+    /// Draw the advanced settings window
+    /// </summary>
+    /// <param name="windowID"></param>
     void settingsFunction(int windowID)
     {
         GUI.Label(new Rect(30, 30, Screen.width - 30, Screen.height - 30), "Change Game:");

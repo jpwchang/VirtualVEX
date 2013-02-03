@@ -37,7 +37,7 @@ public class Main_VConveyorBot : vvRobotBase
             else if (assembly.transform.localPosition.y >= 0.6 && -motor[2] > 1)
                 setMotor(assembly, 0);
             else
-                setMotor(assembly, -motor[2] / 5000, LINEAR_VERTICAL);
+                setMotor(assembly, -motor[2] / 5000, MovementMode.LINEAR_VERTICAL);
         }
 
         //stop robot if time is up

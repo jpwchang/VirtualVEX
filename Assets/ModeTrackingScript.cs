@@ -36,6 +36,9 @@ public class ModeTrackingScript : MonoBehaviour {
     private GameObject timekeeper_ = null;
     private Vector2 aboutScrPos_ = Vector2.zero;
 
+    /// <summary>
+    /// Get the timekeeping object
+    /// </summary>
     public GameObject timekeeper
     {
         get
@@ -48,6 +51,9 @@ public class ModeTrackingScript : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Determines whether or not to show the match load controls
+    /// </summary>
     public bool showML
     {
         get
@@ -55,6 +61,9 @@ public class ModeTrackingScript : MonoBehaviour {
             return matchloads;
         }
     }
+    /// <summary>
+    /// Determines whether or not to show the score
+    /// </summary>
     public bool showScore
     {
         get
@@ -62,6 +71,9 @@ public class ModeTrackingScript : MonoBehaviour {
             return score;
         }
     }
+    /// <summary>
+    /// Determines whether or not to show gate controls (Gateway only)
+    /// </summary>
     public bool showGates
     {
         get
@@ -69,6 +81,9 @@ public class ModeTrackingScript : MonoBehaviour {
             return gates;
         }
     }
+    /// <summary>
+    /// Determines whether or not to show camera controls (ignored in strategic view)
+    /// </summary>
     public bool showCC
     {
         get
@@ -76,6 +91,9 @@ public class ModeTrackingScript : MonoBehaviour {
             return cameraControls;
         }
     }
+    /// <summary>
+    /// Determines whether or not to show remaining time
+    /// </summary>
     public bool showTimer
     {
         get
@@ -83,6 +101,9 @@ public class ModeTrackingScript : MonoBehaviour {
             return timer;
         }
     }
+    /// <summary>
+    /// Show or hide the Physics Analysis Window
+    /// </summary>
     public bool showPhysics
     {
         get
@@ -90,6 +111,9 @@ public class ModeTrackingScript : MonoBehaviour {
             return physics;
         }
     }
+    /// <summary>
+    /// Show or hide the Console
+    /// </summary>
     public bool showConsole
     {
         get
@@ -97,15 +121,24 @@ public class ModeTrackingScript : MonoBehaviour {
             return useconsole;
         }
     }
+    /// <summary>
+    /// Show or hide the About window
+    /// </summary>
     public bool showAbt
     {
         get { return showAbtWindow; }
         set { showAbtWindow = value; }
     }
+    /// <summary>
+    /// Show or hide the status bar
+    /// </summary>
     public bool showStatusBar
     {
         get { return statusBar_; }
     }
+    /// <summary>
+    /// The current view (strategic or match)
+    /// </summary>
     public int getViewMode
     {
         get { return viewMode_; }
@@ -117,6 +150,9 @@ public class ModeTrackingScript : MonoBehaviour {
         aboutRect = new Rect(Screen.width / 2 - 225, Screen.height / 2 - 250, 450, 500);
 	}
 
+    /// <summary>
+    /// Main loop
+    /// </summary>
     void Update()
     {
         if (field == null && Application.loadedLevel != 0)
@@ -126,6 +162,9 @@ public class ModeTrackingScript : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Draw the window GUI (menubar and statusbar)
+    /// </summary>
     void OnGUI()
     {
         GUI.depth = 1;
@@ -207,13 +246,16 @@ public class ModeTrackingScript : MonoBehaviour {
             }
 
             if(statusBar_)
-                GUI.Box(new Rect(0, Screen.height - 22, Screen.width, 22), GUI.tooltip, "menubar");
+                GUI.Box(new Rect(0, Screen.height - 22, Screen.width, 22), GUI.tooltip, "status");
 
             if (showAbtWindow)
                 aboutRect = GUI.Window(4, aboutRect, abtFunction, "About VirtualVEX");
         }
     }
 
+    /// <summary>
+    /// Check for mouse clicks and close the open menu if click is detected
+    /// </summary>
     void LateUpdate()
     {
         if (Input.GetMouseButtonUp(0) && showMenu_)
@@ -225,6 +267,10 @@ public class ModeTrackingScript : MonoBehaviour {
             showMenu_ = true;
     }
 
+    /// <summary>
+    /// Draws the about window
+    /// </summary>
+    /// <param name="windowID"></param>
     void abtFunction(int windowID)
     {
         GUI.Box(new Rect(5, 23, 440, 170), "", "transparent");

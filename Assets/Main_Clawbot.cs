@@ -68,8 +68,8 @@ public class Main_Clawbot : vvRobotBase
                 armMotorPowerPrev_ = motor[2];
             }
 
-            setMotor(claw1, motor[3] * 6, DIRECT_SIDEWAYS);
-            setMotor(claw2, -motor[3] * 6, DIRECT_SIDEWAYS);
+            setMotor(claw1, motor[3] * 6, MovementMode.DIRECT_SIDEWAYS);
+            setMotor(claw2, -motor[3] * 6, MovementMode.DIRECT_SIDEWAYS);
         }
 
         //stop robot if time is up

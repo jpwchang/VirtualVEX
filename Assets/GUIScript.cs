@@ -11,6 +11,7 @@ public class GUIScript : MonoBehaviour {
     private bool isBlueRaised_ = false;
     private bool isRedRaised_ = false;
     private GameObject tracker_;
+    private ModeTrackingScript trackerScript;
     private int cameraPosition_ = 2;
     private string[] cameraStrings_ = new string[] { "Top Left", "Top Right", "Bottom Left", "Bottom Right" };
     private Vector3 tlAngle_ = new Vector3(11.47146f, 135.0f, 0.0f);
@@ -24,6 +25,9 @@ public class GUIScript : MonoBehaviour {
     private Vector3 topAngle_ = new Vector3(90, 0, 0);
     private Vector3 topPos_ = new Vector3(0, 10, 0);
 
+    /// <summary>
+    /// Current position of the camera
+    /// </summary>
     public int cameraPos
     {
         get { return cameraPosition_; }
@@ -40,12 +44,13 @@ public class GUIScript : MonoBehaviour {
     void OnGUI()
     {
         GUI.skin = skin;
-        ModeTrackingScript trackerScript = tracker_.GetComponent<ModeTrackingScript>();
+        if(tracker_ != null)
+            trackerScript = tracker_.GetComponent<ModeTrackingScript>();
 	    if(Application.loadedLevel == 1)
 	    {
 		    isRedRaised_ = !(gateRed_.transform.rotation.z == 0);
 		    isBlueRaised_ = !(gateBlue_.transform.rotation.z == 0);
-		    if(tracker_ != null && trackerScript.showGates)
+		    if(trackerScript != null && trackerScript.showGates)
 		    {
 			    bool redButton = GUI.Button(new Rect(150, 75, 140, 20), "Raise Red Gate [R]");
 			    bool blueButton = GUI.Button(new Rect(150, 100, 140, 20), "Raise Blue Gate [B]");
@@ -62,7 +67,7 @@ public class GUIScript : MonoBehaviour {
 		    }
 	    }
 	
-	    if(tracker_ != null && trackerScript.showCC)
+	    if(trackerScript != null && trackerScript.showCC && trackerScript.getViewMode == 0)
 	    {
 		    GUI.Box(new Rect(Screen.width-220, 100, 220, 110), "Camera Position");
 		    cameraPosition_ = GUI.SelectionGrid(new Rect(Screen.width-210, 140, 200, 65), cameraPosition_, cameraStrings_, 2);

@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using vvIO;
 
+/// <summary>
+/// Represents an object that has an attached Console
+/// </summary>
 public class vvConsoleParent : MonoBehaviour {
     protected Rect consoleRect_;
     protected string inBuffer_ = "";

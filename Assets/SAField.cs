@@ -1,6 +1,9 @@
 using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// A Field set up for the Sack Attack game
+/// </summary>
 public class SAField : Field {
     public Transform sack;
     public GUISkin skin;
@@ -94,8 +97,8 @@ public class SAField : Field {
 
         if (scr_.showML)
         {
-            bool redLoad = GUI.Button(new Rect(160, 75, 110, 20), "Red match load");
-            bool blueLoad = GUI.Button(new Rect(160, 100, 110, 20), "Blue match load");
+            bool redLoad = GUI.Button(new Rect(160, 75, 110, 25), "Red match load");
+            bool blueLoad = GUI.Button(new Rect(160, 105, 110, 25), "Blue match load");
             if (redLoad)
             {
                 if (redMLCount_ < 4)

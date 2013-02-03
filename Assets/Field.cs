@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using vvIO;
 
+/// <summary>
+/// Generic VEX field. This class can be inherited to create specific fields for each game.
+/// </summary>
 public class Field : vvConsoleParent {
     public int redScore = 0;
     public int blueScore = 0;
@@ -20,11 +23,17 @@ public class Field : vvConsoleParent {
     protected float timeLimit_;
     protected float timeLeft_;
 
+    /// <summary>
+    /// Get the robot currently attached to the field
+    /// </summary>
     public Object getRobot
     {
         get { return robot_; }
     }
 
+    /// <summary>
+    /// Get the time limit for the currently loaded match
+    /// </summary>
     public float getTimeLimit
     {
         get
@@ -33,6 +42,9 @@ public class Field : vvConsoleParent {
         }
     }
 
+    /// <summary>
+    /// Get the time remaining for the currently loaded match
+    /// </summary>
     public float getTimeLeft
     {
         get
@@ -41,6 +53,10 @@ public class Field : vvConsoleParent {
         }
     }
 
+    /// <summary>
+    /// Overload this function to provide match loading capablities for the game
+    /// </summary>
+    /// <param name="arg"></param>
     public virtual void matchLoad(string arg) { return; }
 
 	// Use this for initialization
@@ -68,6 +84,9 @@ public class Field : vvConsoleParent {
             + "Console initialized\n\n";
 	}
 
+    /// <summary>
+    /// Updates the remaining time
+    /// </summary>
     protected void doUpdate()
     {
         if (useTimer_ && timeLimit_ > 0 && timeLeft_ > 0) //How much time is left in the match?
@@ -76,36 +95,61 @@ public class Field : vvConsoleParent {
         }
     }
 
+    /// <summary>
+    /// Reset the state of the currently loaded match
+    /// </summary>
+    /// <param name="arg"></param>
     public void reset(string arg)
     {
         int index = Application.loadedLevel;
         Application.LoadLevel(index);
     }
     
+    /// <summary>
+    /// Pause the simulation
+    /// </summary>
+    /// <param name="arg"></param>
     public void pause(string arg)
     {
         Time.timeScale = 0;
         vvConsole.println("Simulation paused");
     }
 
+    /// <summary>
+    /// Resume the simulation, if it is paused
+    /// </summary>
+    /// <param name="arg"></param>
     public void unpause(string arg)
     {
         Time.timeScale = 1;
         vvConsole.println("Resuming simulation...");
     }
 
+    /// <summary>
+    /// Remove the time limit
+    /// </summary>
+    /// <param name="arg"></param>
     public void notime(string arg)
     {
         useTimer_ = false;
         vvConsole.println("Success: timer is no longer in effect");
     }
     
+    /// <summary>
+    /// Destroy the robot.
+    /// </summary>
+    /// <param name="arg"></param>
     protected void destroy(string arg)
     {
         Object.Destroy((robot_ as Transform).gameObject);
         vvConsole.println("Destroying robot");
     }
 
+    /// <summary>
+    /// Changes the time limit for the currently loaded match.
+    /// Please note that time elapsed will NOT be reset.
+    /// </summary>
+    /// <param name="arg">The new time limit</param>
     protected void setTimeLimit(string arg)
     {
         if (arg == null)
@@ -126,6 +170,11 @@ public class Field : vvConsoleParent {
         }
     }
 
+    /// <summary>
+    /// Change the currently loaded robot to a different type.
+    /// Match will not be reset, but the robot will be
+    /// </summary>
+    /// <param name="arg">The new robot</param>
     protected void changeBot(string arg)
     {
         if (arg != null)
@@ -159,6 +208,10 @@ public class Field : vvConsoleParent {
         }
     }
 
+    /// <summary>
+    /// Return the current status of the simulation
+    /// </summary>
+    /// <param name="arg">Flags</param>
     protected void status(string arg)
     {
         vvConsole.println("Loaded scene name: " + Application.loadedLevelName);

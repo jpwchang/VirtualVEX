@@ -1,6 +1,9 @@
 using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// Script attached to goals in Sack Attack for score counting purposes
+/// </summary>
 public class SAGoalScript : MonoBehaviour {
     public GameObject field;
     public bool isHigh;

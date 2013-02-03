@@ -7,6 +7,19 @@ using System;
 //This file uses code originally written by Emil Johanssen ("AngryAnt") and made available on the public domain.
 
 /// <summary>
+/// Specifies directions for motor power to be applied
+/// </summary>
+public enum MovementMode
+{
+    DIRECT_VERTICAL,
+    DIRECT_HORIZONTAL,
+    DIRECT_SIDEWAYS,
+    LINEAR_VERTICAL,
+    LINEAR_HORIZONTAL,
+    LINEAR_SIDEWAYS
+}
+
+/// <summary>
 /// Base class for all robots in VirtualVEX. vvRobotBase handles the loading of user code
 /// from a precompiled DLL file. This loaded code is used in the control of all inherited classes.
 /// Other functions common to all robots are also implemented in this base class. These include
@@ -84,26 +97,26 @@ public class vvRobotBase : MonoBehaviour
     /// <param name="motor">Which motor to apply this to</param>
     /// <param name="powerLevel">The power to supply to this motor</param>
     /// <param name="applyMode">The direction this power should be applied in</param>
-    public void setMotor(GameObject motor, float powerLevel, int applyMode = 0)
+    public void setMotor(GameObject motor, float powerLevel, MovementMode applyMode = MovementMode.DIRECT_VERTICAL)
     {
         switch (applyMode)
         {
-            case 0:
+            case MovementMode.DIRECT_VERTICAL:
                 motor.rigidbody.AddRelativeTorque(powerLevel, 0, 0);
                 break;
-            case 1:
+            case MovementMode.DIRECT_HORIZONTAL:
                 motor.rigidbody.AddRelativeTorque(0, powerLevel, 0);
                 break;
-            case 2:
+            case MovementMode.DIRECT_SIDEWAYS:
                 motor.rigidbody.AddRelativeTorque(0, 0, powerLevel);
                 break;
-            case 3:
+            case MovementMode.LINEAR_VERTICAL:
                 motor.transform.Translate(0, 0, powerLevel);
                 break;
-            case 4:
+            case MovementMode.LINEAR_HORIZONTAL:
                 motor.transform.Translate(0, powerLevel, 0);
                 break;
-            case 5:
+            case MovementMode.LINEAR_SIDEWAYS:
                 motor.transform.Translate(powerLevel, 0, 0);
                 break;
             default:
