@@ -67,7 +67,7 @@ public class GUIScript : MonoBehaviour {
 		    }
 	    }
 	
-	    if(trackerScript != null && trackerScript.showCC && trackerScript.getViewMode == 0)
+	    if(trackerScript != null && trackerScript.showCC && trackerScript.getViewMode == ModeTrackingScript.VIEWMODE_MATCH)
 	    {
 		    GUI.Box(new Rect(Screen.width-220, 100, 220, 110), "Camera Position");
 		    cameraPosition_ = GUI.SelectionGrid(new Rect(Screen.width-210, 140, 200, 65), cameraPosition_, cameraStrings_, 2);
