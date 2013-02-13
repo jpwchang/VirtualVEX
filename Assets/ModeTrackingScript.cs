@@ -154,9 +154,12 @@ public class ModeTrackingScript : MonoBehaviour {
 
     public bool setIndex(int value)
     {
-        if (value < waypoints_.Count)
+        if (value <= waypoints_.Count)
         {
-            curWaypoint_ = value;
+            curWaypoint_ = value-1;
+            Destroy(wpObject_);
+            wpObject_ = (GameObject)Instantiate(waypointObject);
+            wpObject_.transform.position = waypoints_[curWaypoint_].worldPos;
             return true;
         }
         return false;

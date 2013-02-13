@@ -78,6 +78,7 @@ public class Field : vvConsoleParent {
         cmdTable_["about"] = new ConsoleAction(showAbout);
         cmdTable_["change-bot"] = new ConsoleAction(changeBot);
         cmdTable_["status"] = new ConsoleAction(status);
+        cmdTable_["set-waypoint"] = new ConsoleAction(waypointSet);
 
         outBuffer_ = "VirtualVEX, Version 2.0.0 Beta\n"
             + "This is a development build.\n"
@@ -239,18 +240,23 @@ public class Field : vvConsoleParent {
 
     protected void waypointSet(string arg)
     {
-        int index = 0;
-        try
-        {
-            index = System.Int32.Parse(arg);
-        }
-        catch (System.FormatException)
-        {
-            index = 0;
-        }
-        if (scr_.setIndex(index))
-            vvConsole.println("Successfully set current waypoint " + arg);
+        if (arg == null)
+            vvConsole.println("ERROR: No argument provided. USAGE: set-waypoint <index>");
         else
-            vvConsole.println("ERROR: Index outside current waypoint count");
+        {
+            int index = 1;
+            try
+            {
+                index = System.Int32.Parse(arg);
+            }
+            catch (System.FormatException)
+            {
+                index = 1;
+            }
+            if (scr_.setIndex(index))
+                vvConsole.println("Successfully set current waypoint " + arg);
+            else
+                vvConsole.println("ERROR: Index outside current waypoint count");
+        }
     }
 }
