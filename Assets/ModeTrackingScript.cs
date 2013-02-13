@@ -152,6 +152,16 @@ public class ModeTrackingScript : MonoBehaviour {
         get { return viewMode_; }
     }
 
+    public bool setIndex(int value)
+    {
+        if (value < waypoints_.Count)
+        {
+            curWaypoint_ = value;
+            return true;
+        }
+        return false;
+    }
+
     public void advanceWaypoint()
     {
         curWaypoint_++;
@@ -185,6 +195,8 @@ public class ModeTrackingScript : MonoBehaviour {
             wpObject_ = (GameObject)Instantiate(waypointObject);
             wpObject_.transform.position = waypoints_[0].worldPos;
         }
+        if (curWaypoint_ >= waypoints_.Count && wpObject_ != null)
+            wpObject_ = null;
     }
 
     /// <summary>
@@ -283,52 +295,54 @@ public class ModeTrackingScript : MonoBehaviour {
         {
             case 1:
             {
-                GUI.Box(new Rect(0, 22, 125, 40), "", "menudrop");
-                if (GUI.Button(new Rect(0, 22, 125, 20), new GUIContent("        Main Menu", "Close the simulation and return to the main menu"), "dropdownitem"))
+                GUI.Box(new Rect(0, 22, 130, 40), "", "menudrop");
+                if (GUI.Button(new Rect(0, 22, 130, 20), new GUIContent("        Main Menu", "Close the simulation and return to the main menu"), "dropdownitem"))
                 {
                     Destroy(tracker);
                     Application.LoadLevel(0);
                 }
-                if (GUI.Button(new Rect(0, 42, 125, 20), new GUIContent("        Exit", "Quit the application"), "dropdownitem"))
+                if (GUI.Button(new Rect(0, 42, 130, 20), new GUIContent("        Exit", "Quit the application"), "dropdownitem"))
                     Application.Quit();
                 break;
             }
             case 2:
             {
-                GUI.Box(new Rect(30, 22, 125, 60), "", "menudrop");
-                if (GUI.Button(new Rect(30, 22, 125, 20), "        " + pblabel, "dropdownitem"))
+                GUI.Box(new Rect(30, 22, 130, 80), "", "menudrop");
+                if (GUI.Button(new Rect(30, 22, 130, 20), "        " + pblabel, "dropdownitem"))
                 {
                     if (Time.timeScale == 1)
                         fieldScript.pause(null);
                     else
                         fieldScript.unpause(null);
                 }
-                if (GUI.Button(new Rect(30, 42, 125, 20), new GUIContent("        Stop timer",  "Stop the match timer"), "dropdownitem"))
+                if (GUI.Button(new Rect(30, 42, 130, 20), new GUIContent("        Stop timer",  "Stop the match timer"), "dropdownitem"))
                     fieldScript.notime(null);
-                if (GUI.Button(new Rect(30, 62, 125, 20), new GUIContent("        Reset", "Reset the simulation to start parameters"), "dropdownitem"))
+                if (GUI.Button(new Rect(30, 62, 130, 20), new GUIContent("        Reset", "Reset the simulation to start parameters"), "dropdownitem"))
                     fieldScript.reset(null);
+                if(GUI.Button(new Rect(30, 82, 130, 20), new GUIContent("        Restart Waypoints", "Restart the waypoints (if any) from the beginning"), "dropdownitem"))
+                    curWaypoint_ = 0;
                 break;
             }
             case 3:
             {
-                GUI.Box(new Rect(100, 22, 125, 190), "", "menudrop");
-                cameraControls = GUI.Toggle(new Rect(100, 22, 125, 20), cameraControls, new GUIContent(" Camera Controls", "Toggle visibility of camera position controls"), "menutoggle");
-                timer = GUI.Toggle(new Rect(100, 42, 125, 20), timer, new GUIContent(" Timer", "Toggle visibility of game timer"), "menutoggle");
-                score = GUI.Toggle(new Rect(100, 62, 125, 20), score, new GUIContent(" Score", "Toggle scorekeeper"), "menutoggle");
-                useconsole = GUI.Toggle(new Rect(100, 82, 125, 20), useconsole, new GUIContent(" Console", "Show or hide the command line window"), "menutoggle");
-                physics = GUI.Toggle(new Rect(100, 102, 125, 20), physics, new GUIContent(" Physics Window", "Show or hide robot physics statistics"), "menutoggle");
-                matchloads = GUI.Toggle(new Rect(100, 122, 125, 20), matchloads, new GUIContent(" Match Loads", "Toggle visibility of Match Loads buttons"), "menutoggle");
-                statusBar_ = GUI.Toggle(new Rect(100, 142, 125, 20), statusBar_, new GUIContent(" Status Bar", "Show or hide the Status Bar"), "menutoggle");
-                GUI.Box(new Rect(100, 162, 125, 10), "", "separator");
-                viewMode_ = GUI.SelectionGrid(new Rect(100, 172, 125, 40), viewMode_, viewModes_, 1, "menutoggle");
+                GUI.Box(new Rect(100, 22, 130, 190), "", "menudrop");
+                cameraControls = GUI.Toggle(new Rect(100, 22, 130, 20), cameraControls, new GUIContent(" Camera Controls", "Toggle visibility of camera position controls"), "menutoggle");
+                timer = GUI.Toggle(new Rect(100, 42, 130, 20), timer, new GUIContent(" Timer", "Toggle visibility of game timer"), "menutoggle");
+                score = GUI.Toggle(new Rect(100, 62, 130, 20), score, new GUIContent(" Score", "Toggle scorekeeper"), "menutoggle");
+                useconsole = GUI.Toggle(new Rect(100, 82, 130, 20), useconsole, new GUIContent(" Console", "Show or hide the command line window"), "menutoggle");
+                physics = GUI.Toggle(new Rect(100, 102, 130, 20), physics, new GUIContent(" Physics Window", "Show or hide robot physics statistics"), "menutoggle");
+                matchloads = GUI.Toggle(new Rect(100, 122, 130, 20), matchloads, new GUIContent(" Match Loads", "Toggle visibility of Match Loads buttons"), "menutoggle");
+                statusBar_ = GUI.Toggle(new Rect(100, 142, 130, 20), statusBar_, new GUIContent(" Status Bar", "Show or hide the Status Bar"), "menutoggle");
+                GUI.Box(new Rect(100, 162, 130, 10), "", "separator");
+                viewMode_ = GUI.SelectionGrid(new Rect(100, 172, 130, 40), viewMode_, viewModes_, 1, "menutoggle");
                 break;
             }
             case 4:
             {
-                GUI.Box(new Rect(140, 22, 125, 40), "", "menudrop");
-                if (GUI.Button(new Rect(140, 22, 125, 20), new GUIContent("        Documentation", "View help on how to use VirtualVEX (This will open in your browser)"), "dropdownitem"))
+                GUI.Box(new Rect(140, 22, 130, 40), "", "menudrop");
+                if (GUI.Button(new Rect(140, 22, 130, 20), new GUIContent("        Documentation", "View help on how to use VirtualVEX (This will open in your browser)"), "dropdownitem"))
                     Process.Start("https://sites.google.com/site/virtualvex/knowledge-base"); ;
-                if (GUI.Button(new Rect(140, 42, 125, 20), new GUIContent("        About", "About VirtualVEX"), "dropdownitem"))
+                if (GUI.Button(new Rect(140, 42, 130, 20), new GUIContent("        About", "About VirtualVEX"), "dropdownitem"))
                 {
                     showAbtWindow = true;
                     curMenu = 0;

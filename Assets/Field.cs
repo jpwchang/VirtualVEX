@@ -236,4 +236,21 @@ public class Field : vvConsoleParent {
                 vvConsole.println("Found joystick: " + s);
         }
     }
+
+    protected void waypointSet(string arg)
+    {
+        int index = 0;
+        try
+        {
+            index = System.Int32.Parse(arg);
+        }
+        catch (System.FormatException)
+        {
+            index = 0;
+        }
+        if (scr_.setIndex(index))
+            vvConsole.println("Successfully set current waypoint " + arg);
+        else
+            vvConsole.println("ERROR: Index outside current waypoint count");
+    }
 }
