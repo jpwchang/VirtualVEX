@@ -22,6 +22,7 @@ public class Field : vvConsoleParent {
     protected bool useTimer_;
     protected float timeLimit_;
     protected float timeLeft_;
+    protected float actualTimeLimit_;
 
     /// <summary>
     /// Get the robot currently attached to the field
@@ -38,7 +39,7 @@ public class Field : vvConsoleParent {
     {
         get
         {
-            return timeLimit_;
+            return actualTimeLimit_;
         }
     }
 
@@ -66,6 +67,7 @@ public class Field : vvConsoleParent {
         scr_ = tracker.GetComponent<ModeTrackingScript>();
         timeLimit_ = tracker.GetComponent<ModeTrackingScript>().timeLimit;
         timeLeft_ = timeLimit_;
+        actualTimeLimit_ = timeLimit_;
         useTimer_ = true;
         cmdTable_ = new Dictionary<string, ConsoleAction>();
 
@@ -90,6 +92,8 @@ public class Field : vvConsoleParent {
     /// </summary>
     protected void doUpdate()
     {
+        if (scr_.getViewMode == ModeTrackingScript.VIEWMODE_STRATEGIC && timeLimit_ > 0 && timeLeft_ > 0)
+            timeLimit_ += Time.deltaTime;
         if (useTimer_ && timeLimit_ > 0 && timeLeft_ > 0) //How much time is left in the match?
         {
             timeLeft_ = timeLimit_ - Time.timeSinceLevelLoad;

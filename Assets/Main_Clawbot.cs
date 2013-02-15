@@ -77,6 +77,8 @@ public class Main_Clawbot : vvRobotBase
         {
             frontRight.motorTorque = 0;
             frontLeft.motorTorque = 0;
+            backRight.motorTorque = 0;
+            backLeft.motorTorque = 0;
             lift.transform.Translate(0, 0, 0);
             claw1.rigidbody.AddRelativeTorque(0, 0, 0);
             claw2.rigidbody.AddRelativeTorque(0, 0, 0);

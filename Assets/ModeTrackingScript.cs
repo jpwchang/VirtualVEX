@@ -152,6 +152,11 @@ public class ModeTrackingScript : MonoBehaviour {
         get { return viewMode_; }
     }
 
+    public int getWaypoint
+    {
+        get { return curWaypoint_; }
+    }
+
     public bool setIndex(int value)
     {
         if (value <= waypoints_.Count)
@@ -218,6 +223,7 @@ public class ModeTrackingScript : MonoBehaviour {
                     chooseWP_ = true;
                 if (chooseWP_)
                 {
+                    GUI.Box(new Rect(Screen.width / 2 - 150, 50, 300, 40), "Click on location to place waypoint");
                     if (Input.GetMouseButton(0))
                     {
                         Vector3 temp = Input.mousePosition;
