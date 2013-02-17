@@ -28,7 +28,6 @@ public class ModeTrackingScript : MonoBehaviour {
     private bool showHelpMenu = false;
     private bool showAbtWindow = false;
     private int viewMode_ = 0;
-    private string[] viewModes_ = new string[] { "Match View", "Strategic View" };
     private bool statusBar_ = true;
     private bool showMenu_ = false;
     private bool chooseWP_ = false;
@@ -64,70 +63,56 @@ public class ModeTrackingScript : MonoBehaviour {
     /// </summary>
     public bool showML
     {
-        get
-        {
-            return matchloads;
-        }
+        get { return matchloads; }
+        set { matchloads = value; }
     }
     /// <summary>
     /// Determines whether or not to show the score
     /// </summary>
     public bool showScore
     {
-        get
-        {
-            return score;
-        }
+        get { return score; }
+        set { score = value; }
     }
     /// <summary>
     /// Determines whether or not to show gate controls (Gateway only)
     /// </summary>
     public bool showGates
     {
-        get
-        {
-            return gates;
-        }
+        get { return gates; }
+        set { gates = value; }
     }
     /// <summary>
     /// Determines whether or not to show camera controls (ignored in strategic view)
     /// </summary>
     public bool showCC
     {
-        get
-        {
-            return cameraControls;
-        }
+        get { return cameraControls; }
+        set { cameraControls = value; }
     }
     /// <summary>
     /// Determines whether or not to show remaining time
     /// </summary>
     public bool showTimer
     {
-        get
-        {
-            return timer;
-        }
+        get { return timer; }
+        set { timer = value; }
     }
     /// <summary>
     /// Show or hide the Physics Analysis Window
     /// </summary>
     public bool showPhysics
     {
-        get
-        {
-            return physics;
-        }
+        get { return physics; }
+        set { physics = value; }
     }
     /// <summary>
     /// Show or hide the Console
     /// </summary>
     public bool showConsole
     {
-        get
-        {
-            return useconsole;
-        }
+        get { return useconsole; }
+        set { useconsole = value; }
     }
     /// <summary>
     /// Show or hide the About window
@@ -143,6 +128,7 @@ public class ModeTrackingScript : MonoBehaviour {
     public bool showStatusBar
     {
         get { return statusBar_; }
+        set { statusBar_ = value; }
     }
     /// <summary>
     /// The current view (strategic or match)
@@ -150,11 +136,13 @@ public class ModeTrackingScript : MonoBehaviour {
     public int getViewMode
     {
         get { return viewMode_; }
+        set { viewMode_ = value; }
     }
 
     public int getWaypoint
     {
         get { return curWaypoint_; }
+        set { curWaypoint_ = value; }
     }
 
     public bool setIndex(int value)
@@ -219,8 +207,7 @@ public class ModeTrackingScript : MonoBehaviour {
         {
             if (viewMode_ == VIEWMODE_STRATEGIC)
             {
-                if(GUI.Button(new Rect(Screen.width - 170, 75, 125, 40), "Add Waypoint"))
-                    chooseWP_ = true;
+                chooseWP_ = GUI.Toggle(new Rect(Screen.width - 170, 75, 125, 40), chooseWP_, "Add Waypoint", "Button");
                 if (chooseWP_)
                 {
                     GUI.Box(new Rect(Screen.width / 2 - 150, 50, 300, 40), "Click on location to place waypoint");
@@ -239,27 +226,12 @@ public class ModeTrackingScript : MonoBehaviour {
                 for (int i = 0; i < waypoints_.Count; i++)
                     GUI.Box(new Rect(waypoints_[i].screenCoords.x, waypoints_[i].screenCoords.y, 30, 30), "" + (i + 1));
             }
-            CreateMenuBar();
             if(statusBar_)
                 GUI.Box(new Rect(0, Screen.height - 22, Screen.width, 22), GUI.tooltip, "status");
 
             if (showAbtWindow)
                 aboutRect = GUI.Window(4, aboutRect, abtFunction, "About VirtualVEX");
         }
-    }
-
-    /// <summary>
-    /// Check for mouse clicks and close the open menu if click is detected
-    /// </summary>
-    void LateUpdate()
-    {
-        if (Input.GetMouseButtonUp(0) && showMenu_)
-        {
-            showMenu_ = false;
-            curMenu = 0;
-        }
-        if (curMenu > 0)
-            showMenu_ = true;
     }
 
     /// <summary>
@@ -279,85 +251,13 @@ public class ModeTrackingScript : MonoBehaviour {
         GUI.DragWindow(new Rect(0, 0, 10000, 20));
     }
 
-    /// <summary>
-    /// Draws the Menu Bar and dropdown menus
-    /// </summary>
-    private void CreateMenuBar()
+    public void wpReset()
     {
-        string pblabel = Time.timeScale == 0 ? "Unpause" : "Pause";
-        string b1style = curMenu == 1 ? "menuitempress" : "menuitem";
-        string b2style = curMenu == 2 ? "menuitempress" : "menuitem";
-        string b3style = curMenu == 3 ? "menuitempress" : "menuitem";
-        string b4style = curMenu == 4 ? "menuitempress" : "menuitem";
-
-        GUI.Box(new Rect(0, 0, Screen.width, 22), "", "menubar");
-        if (GUI.Button(new Rect(0, 1, 30, 20), "File", b1style))
-            curMenu = curMenu == 1? 0 : 1;
-        if(GUI.Button(new Rect(30, 1, 70, 20), "Simulation", b2style))
-            curMenu = curMenu == 2 ? 0 : 2;
-        if (GUI.Button(new Rect(100, 1, 40, 20), "View", b3style))
-            curMenu = curMenu == 3 ? 0 : 3;
-        if (GUI.Button(new Rect(140, 1, 40, 20), "Help", b4style))
-            curMenu = curMenu == 4 ? 0 : 4;
-
-        switch(curMenu)
+        if (wpObject_ != null)
         {
-            case 1:
-            {
-                GUI.Box(new Rect(0, 22, 130, 40), "", "menudrop");
-                if (GUI.Button(new Rect(0, 22, 130, 20), new GUIContent("        Main Menu", "Close the simulation and return to the main menu"), "dropdownitem"))
-                {
-                    Destroy(tracker);
-                    Application.LoadLevel(0);
-                }
-                if (GUI.Button(new Rect(0, 42, 130, 20), new GUIContent("        Exit", "Quit the application"), "dropdownitem"))
-                    Application.Quit();
-                break;
-            }
-            case 2:
-            {
-                GUI.Box(new Rect(30, 22, 130, 80), "", "menudrop");
-                if (GUI.Button(new Rect(30, 22, 130, 20), "        " + pblabel, "dropdownitem"))
-                {
-                    if (Time.timeScale == 1)
-                        fieldScript.pause(null);
-                    else
-                        fieldScript.unpause(null);
-                }
-                if (GUI.Button(new Rect(30, 42, 130, 20), new GUIContent("        Stop timer",  "Stop the match timer"), "dropdownitem"))
-                    fieldScript.notime(null);
-                if (GUI.Button(new Rect(30, 62, 130, 20), new GUIContent("        Reset", "Reset the simulation to start parameters"), "dropdownitem"))
-                    fieldScript.reset(null);
-                if(GUI.Button(new Rect(30, 82, 130, 20), new GUIContent("        Restart Waypoints", "Restart the waypoints (if any) from the beginning"), "dropdownitem"))
-                    curWaypoint_ = 0;
-                break;
-            }
-            case 3:
-            {
-                GUI.Box(new Rect(100, 22, 130, 190), "", "menudrop");
-                cameraControls = GUI.Toggle(new Rect(100, 22, 130, 20), cameraControls, new GUIContent(" Camera Controls", "Toggle visibility of camera position controls"), "menutoggle");
-                timer = GUI.Toggle(new Rect(100, 42, 130, 20), timer, new GUIContent(" Timer", "Toggle visibility of game timer"), "menutoggle");
-                score = GUI.Toggle(new Rect(100, 62, 130, 20), score, new GUIContent(" Score", "Toggle scorekeeper"), "menutoggle");
-                useconsole = GUI.Toggle(new Rect(100, 82, 130, 20), useconsole, new GUIContent(" Console", "Show or hide the command line window"), "menutoggle");
-                physics = GUI.Toggle(new Rect(100, 102, 130, 20), physics, new GUIContent(" Physics Window", "Show or hide robot physics statistics"), "menutoggle");
-                matchloads = GUI.Toggle(new Rect(100, 122, 130, 20), matchloads, new GUIContent(" Match Loads", "Toggle visibility of Match Loads buttons"), "menutoggle");
-                statusBar_ = GUI.Toggle(new Rect(100, 142, 130, 20), statusBar_, new GUIContent(" Status Bar", "Show or hide the Status Bar"), "menutoggle");
-                GUI.Box(new Rect(100, 162, 130, 10), "", "separator");
-                viewMode_ = GUI.SelectionGrid(new Rect(100, 172, 130, 40), viewMode_, viewModes_, 1, "menutoggle");
-                break;
-            }
-            case 4:
-            {
-                GUI.Box(new Rect(140, 22, 130, 40), "", "menudrop");
-                if (GUI.Button(new Rect(140, 22, 130, 20), new GUIContent("        Documentation", "View help on how to use VirtualVEX (This will open in your browser)"), "dropdownitem"))
-                    Process.Start("https://sites.google.com/site/virtualvex/knowledge-base"); ;
-                if (GUI.Button(new Rect(140, 42, 130, 20), new GUIContent("        About", "About VirtualVEX"), "dropdownitem"))
-                {
-                    showAbtWindow = true;
-                    curMenu = 0;
-                }
-                break;
-            }
+            Destroy(wpObject_);
+            wpObject_ = null;
         }
+        waypoints_ = new List<WaypointDescription>();
     }
 }
