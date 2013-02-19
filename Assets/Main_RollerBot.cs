@@ -20,8 +20,24 @@ public class Main_RollerBot : vvRobotBase
     public GameObject intake;
     public GameObject tray;
 
+    private vvComponentCollider intakeCollider;
+    private vvComponentCollider r1Collider;
+    private vvComponentCollider l1Collider;
+
+    public float getLPower
+    {
+        get { return lMotorPowerPrev_; }
+    }
+    public float getRPower
+    {
+        get { return rMotorPowerPrev_; }
+    }
+
     void Awake()
     {
+        intakeCollider = tray.GetComponent<vvComponentCollider>();
+        r1Collider = armR1.GetComponent<vvComponentCollider>();
+        l1Collider = armL1.GetComponent<vvComponentCollider>();
         robotID_ = "Roller Bot";
     }
 
@@ -32,8 +48,22 @@ public class Main_RollerBot : vvRobotBase
         if (complete_ && (owner.getTimeLeft > 0 || owner.getTimeLimit == 0))
         {
             //Apply operator inputs to the proper mechanisms on the robot.
-            setMotors(frontRight, backRight, motor[0]);
-            setMotors(frontLeft, backLeft, motor[1]);
+            if (intakeCollider.isColliding || r1Collider.isColliding || l1Collider.isColliding)
+            {
+                if ((lMotorPowerPrev_ > 0 && motor[1] > 0) || (lMotorPowerPrev_ < 0 && motor[1] < 0))
+                    setMotors(frontLeft, backLeft, 0);
+                else setMotors(frontLeft, backLeft, motor[1]);
+                if ((rMotorPowerPrev_ > 0 && motor[0] > 0) || (rMotorPowerPrev_ < 0 && motor[0] < 0))
+                    setMotors(frontRight, backRight, 0);
+                else setMotors(frontRight, backRight, motor[0]);
+            }
+            else
+            {
+                setMotors(frontRight, backRight, motor[0]);
+                setMotors(frontLeft, backLeft, motor[1]);
+                lMotorPowerPrev_ = motor[1];
+                rMotorPowerPrev_ = motor[0];
+            }
             if (Mathf.Abs(motor[2]) > 5)
             {
                 tray.rigidbody.isKinematic = false;

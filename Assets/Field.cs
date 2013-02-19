@@ -82,8 +82,8 @@ public class Field : vvConsoleParent {
         cmdTable_["status"] = new ConsoleAction(status);
         cmdTable_["set-waypoint"] = new ConsoleAction(waypointSet);
 
-        outBuffer_ = "VirtualVEX, Version 2.0.0 Beta\n"
-            + "This is a development build.\n"
+        outBuffer_ = "VirtualVEX, Version 2.0.0 (Beta)\n"
+            + "This is a development build. Some features may be unstable.\n"
             + "Console initialized\n\n";
 	}
 

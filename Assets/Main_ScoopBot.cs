@@ -53,7 +53,6 @@ public class Main_ScoopBot : vvRobotBase
                 lMotorPowerPrev_ = motor[1];
                 rMotorPowerPrev_ = motor[0];
             }
-            print(motor[2]);
             setMotor(scoop, -motor[2]/50);
         }
 

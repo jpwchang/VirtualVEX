@@ -114,6 +114,9 @@ public class GUIScript : MonoBehaviour {
         }
 
         CreateMenuBar();
+
+        if (trackerScript.showStatusBar)
+            GUI.Box(new Rect(0, Screen.height - 22, Screen.width, 22), GUI.tooltip, "status");
     }
 
     /// <summary>

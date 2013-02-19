@@ -226,8 +226,6 @@ public class ModeTrackingScript : MonoBehaviour {
                 for (int i = 0; i < waypoints_.Count; i++)
                     GUI.Box(new Rect(waypoints_[i].screenCoords.x, waypoints_[i].screenCoords.y, 30, 30), "" + (i + 1));
             }
-            if(statusBar_)
-                GUI.Box(new Rect(0, Screen.height - 22, Screen.width, 22), GUI.tooltip, "status");
 
             if (showAbtWindow)
                 aboutRect = GUI.Window(4, aboutRect, abtFunction, "About VirtualVEX");
