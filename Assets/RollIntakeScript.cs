@@ -36,10 +36,7 @@ public class RollIntakeScript : MonoBehaviour
         {
             if (other.attachedRigidbody.tag == "sack" || other.attachedRigidbody.tag == "bonus_sack")
             {
-                if (speed < 0)
-                    other.attachedRigidbody.AddForce(direction * (speed * 0.1f), ForceMode.Acceleration);
-                else
-                    other.attachedRigidbody.AddForce(direction * (speed * 0.05f), ForceMode.Acceleration);
+                   other.attachedRigidbody.AddForce(direction * (speed * 0.05f), ForceMode.Acceleration);
             }
         }
     }
