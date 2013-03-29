@@ -18,6 +18,7 @@ public class Field : vvConsoleParent {
     public Transform vertical;
     public Transform dbot;
     public Transform zackbot;
+    public Transform shovel;
     protected Object robot_;
     protected bool useTimer_;
     protected float timeLimit_;
@@ -204,6 +205,12 @@ public class Field : vvConsoleParent {
                     break;
                 case "scooper":
                     robot_ = Instantiate(scoop);
+                    break;
+                case "roller":
+                    robot_ = Instantiate(zackbot);
+                    break;
+                case "shovel":
+                    robot_ = Instantiate(shovel);
                     break;
                 default:
                     vvConsole.println("No argument specified. Defaulting to clawbot.");

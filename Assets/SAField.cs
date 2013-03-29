@@ -47,6 +47,9 @@ public class SAField : Field {
             case 2:
                 selectedBot = zackbot;
                 break;
+            case 3:
+                selectedBot = shovel;
+                break;
         }
         switch (scr_.startTile)
         {

@@ -24,7 +24,7 @@ public class Menu : MonoBehaviour {
     private int level = 0;
     private WWW www;
     private WWW updater;
-    private string[] robotsSack = { "Clawbot", "Scooper Bot", "Roller Bot" };
+    private string[] robotsSack = { "Clawbot", "Scooper Bot", "Roller Bot", "Shovel Bot" };
     private string[] robotsGateway = { "Clawbot", "ConveyorBot", "H. Roller", "V. ConveyorBot", "V. Roller" };
     private string[] startTilesSack = { "Red 1", "Red 2", "Blue 1", "Blue 2" };
     private string[] tabs = { "SIMULATION", "GETTING STARTED", "NEWS & UPDATES" };
