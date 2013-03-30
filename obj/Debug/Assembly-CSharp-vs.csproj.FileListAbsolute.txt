@@ -12,3 +12,17 @@ C:\Users\jonathan\Documents\vv_a3_source\VEXsimulator\Temp\bin\Debug\Assembly-CS
 C:\Users\jonathan\Documents\vv_a3_source\VEXsimulator\obj\Debug\Assembly-CSharp-vs.csprojResolveAssemblyReference.cache
 C:\Users\jonathan\Documents\vv_a3_source\VEXsimulator\obj\Debug\Assembly-CSharp.dll
 C:\Users\jonathan\Documents\vv_a3_source\VEXsimulator\obj\Debug\Assembly-CSharp.pdb
+C:\Users\JP\Documents\VirtualVEX\obj\Debug\Assembly-CSharp-vs.csprojResolveAssemblyReference.cache
+C:\Users\JP\Documents\VirtualVEX\obj\Debug\Assembly-CSharp.dll
+C:\Users\JP\Documents\VirtualVEX\obj\Debug\Assembly-CSharp.pdb
+C:\Users\JP\Documents\VirtualVEX\Temp\bin\Debug\Assembly-CSharp.dll
+C:\Users\JP\Documents\VirtualVEX\Temp\bin\Debug\Assembly-CSharp.pdb
+C:\Users\JP\Documents\VirtualVEX\Temp\bin\Debug\Assembly-UnityScript-firstpass.dll
+C:\Users\JP\Documents\VirtualVEX\Temp\bin\Debug\main.dll
+C:\Users\JP\Documents\VirtualVEX\Temp\bin\Debug\MyAssembly.dll
+C:\Users\JP\Documents\VirtualVEX\Temp\bin\Debug\UnityEditor.dll
+C:\Users\JP\Documents\VirtualVEX\Temp\bin\Debug\UnityEngine.dll
+C:\Users\JP\Documents\VirtualVEX\Temp\bin\Debug\Mono.Cecil.dll
+C:\Users\JP\Documents\VirtualVEX\Temp\bin\Debug\nunit.framework.dll
+C:\Users\JP\Documents\VirtualVEX\Temp\bin\Debug\ICSharpCode.NRefactory.dll
+C:\Users\JP\Documents\VirtualVEX\Temp\bin\Debug\Assembly-CSharp-firstpass.pdb

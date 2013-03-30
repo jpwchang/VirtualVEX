@@ -96,5 +96,13 @@ namespace vvIO
         {
             print("\n");
         }
+
+        /// <summary>
+        /// Clears the console buffer
+        /// </summary>
+        public static void clear()
+        {
+            fieldScript.cOutBuf = "";
+        }
     }
 }

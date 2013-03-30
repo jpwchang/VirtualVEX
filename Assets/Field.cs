@@ -63,14 +63,12 @@ public class Field : vvConsoleParent {
 
 	// Use this for initialization
 	protected void FieldInit () {
+        CPInit();
         consoleRect_ = new Rect(Screen.width - 420, 210, 400, 300);
-        tracker = GameObject.Find("Mode Tracker");
-        scr_ = tracker.GetComponent<ModeTrackingScript>();
         timeLimit_ = tracker.GetComponent<ModeTrackingScript>().timeLimit;
         timeLeft_ = timeLimit_;
         actualTimeLimit_ = timeLimit_;
         useTimer_ = true;
-        cmdTable_ = new Dictionary<string, ConsoleAction>();
 
         cmdTable_["reset"] = new ConsoleAction(reset);
         cmdTable_["pause"] = new ConsoleAction(pause);
@@ -78,7 +76,6 @@ public class Field : vvConsoleParent {
         cmdTable_["no-time"] = new ConsoleAction(notime);
         cmdTable_["destroy"] = new ConsoleAction(destroy);
         cmdTable_["set-time-limit"] = new ConsoleAction(setTimeLimit);
-        cmdTable_["about"] = new ConsoleAction(showAbout);
         cmdTable_["change-bot"] = new ConsoleAction(changeBot);
         cmdTable_["status"] = new ConsoleAction(status);
         cmdTable_["set-waypoint"] = new ConsoleAction(waypointSet);

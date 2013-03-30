@@ -29,10 +29,13 @@ public class vvConsoleParent : MonoBehaviour {
     }
 
 	// Use this for initialization
-	void Start () {
+	protected void CPInit () {
         tracker = GameObject.Find("Mode Tracker");
         scr_ = tracker.GetComponent<ModeTrackingScript>();
+        cmdTable_ = new Dictionary<string, ConsoleAction>();
         cmdTable_["about"] = new ConsoleAction(showAbout);
+        cmdTable_["exit"] = new ConsoleAction(closeConsole);
+        cmdTable_["clear"] = new ConsoleAction(clear);
 	}
 
     /// <summary>
@@ -64,30 +67,45 @@ public class vvConsoleParent : MonoBehaviour {
     /// <param name="cmd">The command to evaluate</param>
     protected void handleCommand(string cmd)
     {
-        string[] tokens = cmd.Split(new char[] { ' ' });
-        try
+        string[] commands = cmd.Split(new char[] { '&' });
+        foreach (string curCmd in commands)
         {
-            ConsoleAction action = cmdTable_[tokens[0]];
-            if (action != null)
+            string trimmedCmd = curCmd.Trim();
+            string[] tokens = trimmedCmd.Split(new char[] { ' ' });
+            try
             {
-                vvConsole.print(">");
-                foreach (string s in tokens)
-                    vvConsole.print(s + " ");
-                vvConsole.println();
-                if (tokens.Length > 1)
-                    action(tokens[1]);
-                else
-                    action(null);
+                ConsoleAction action = cmdTable_[tokens[0]];
+                if (action != null)
+                {
+                    vvConsole.print(">");
+                    foreach (string s in tokens)
+                        vvConsole.print(s + " ");
+                    vvConsole.println();
+                    if (tokens.Length > 1)
+                        action(tokens[1]);
+                    else
+                        action(null);
+                }
             }
-        }
-        catch (KeyNotFoundException)
-        {
-            vvConsole.println("Error: " + tokens[0] + " is not a valid command");
+            catch (KeyNotFoundException)
+            {
+                vvConsole.println("Error: " + tokens[0] + " is not a valid command");
+            }
         }
     }
 
     protected void showAbout(string arg)
     {
         scr_.showAbt = true;
+    }
+
+    protected void closeConsole(string arg)
+    {
+        scr_.showConsole = false;
+    }
+
+    protected void clear(string arg)
+    {
+        vvConsole.clear();
     }
 }
