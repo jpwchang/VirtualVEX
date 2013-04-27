@@ -156,7 +156,7 @@ public class vvRobotBase : MonoBehaviour
 #if UNITY_STANDALONE_WIN
         assemblyURL_ = "file://" + Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\VirtualVEX\\main.dll";
 #else
-        assemblyURL_ = "file://" + Application.dataPath + "//main.dll";
+        assemblyURL_ = "file://" + Application.dataPath + "/main.dll";
 #endif
         print(assemblyURL_);
         if (assemblyURL_ != "")

@@ -28,6 +28,7 @@ public class ModeTrackingScript : MonoBehaviour {
     private bool showHelpMenu = false;
     private bool showAbtWindow = false;
     private int viewMode_ = 0;
+    private bool disable_ = false;
     private bool statusBar_ = true;
     private bool showMenu_ = false;
     private bool chooseWP_ = false;
@@ -143,6 +144,15 @@ public class ModeTrackingScript : MonoBehaviour {
     {
         get { return curWaypoint_; }
         set { curWaypoint_ = value; }
+    }
+
+    /// <summary>
+    /// Should we disable robot when time is up?
+    /// </summary>
+    public bool disableOnTimeUp
+    {
+        get { return disable_; }
+        set { disable_ = value; }
     }
 
     public bool setIndex(int value)

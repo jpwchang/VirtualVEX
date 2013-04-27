@@ -43,19 +43,23 @@ public class vvConsoleParent : MonoBehaviour {
     /// </summary>
     protected void consoleFunction(int windowId)
     {
-        inBuffer_ = GUI.TextArea(new Rect(15, 270, 200, 20), inBuffer_, "TextField");
+        inBuffer_ = GUI.TextArea(new Rect(15, 270, 200, 20), inBuffer_, "console");
         bool button = GUI.Button(new Rect(220, 267.5f, 40, 25), "Go");
         if (inBuffer_.Contains("\n"))
         {
             inBuffer_ = inBuffer_.Trim();
             handleCommand(inBuffer_);
+            inBuffer_ = "";
         }
         if (button)
+        {
             handleCommand(inBuffer_);
+            inBuffer_ = "";
+        }
         GUI.BeginGroup(new Rect(0, 5, 390, 250));
-        GUI.Box(new Rect(10, 20, 380, 230), "", "TextField");
+        GUI.Box(new Rect(10, 20, 380, 230), "", "console");
         scrollPosition = GUILayout.BeginScrollView(scrollPosition, GUILayout.Width(380), GUILayout.Height(230), GUILayout.MinHeight(230));
-        GUILayout.TextArea(outBuffer_);
+        GUILayout.TextArea(outBuffer_, "console_text");
         GUILayout.EndScrollView();
         GUI.EndGroup();
         GUI.DragWindow(new Rect(0, 0, 10000, 20));
@@ -89,7 +93,8 @@ public class vvConsoleParent : MonoBehaviour {
             }
             catch (KeyNotFoundException)
             {
-                vvConsole.println("Error: " + tokens[0] + " is not a valid command");
+                if(tokens[0].Length > 0)
+                    vvConsole.println("Error: \"" + tokens[0] + "\" is not a valid command");
             }
         }
     }

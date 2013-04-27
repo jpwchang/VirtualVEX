@@ -45,6 +45,7 @@ public class Menu : MonoBehaviour {
     private int fieldType = 0;
     private const int GAME_GATEWAY = 0;
     private const int GAME_SACK = 1;
+    private bool disable_;
 
     /// <summary>
     /// Custom lightweight absolute value function
@@ -76,6 +77,7 @@ public class Menu : MonoBehaviour {
         settingsRect = new Rect(Screen.width / 2 - 200, Screen.height / 2 - 200, 400, 400);
         showAboutWindow = false;
         showSettingsWindow = false;
+        disable_ = false;
     }
 
     /// <summary>
@@ -132,21 +134,27 @@ public class Menu : MonoBehaviour {
             bool advanced = GUI.Button(new Rect(490, 360, 120, 30), "Advanced Settings");
             GUI.Label(new Rect(495, 80, 100, 20), "Time Limit");
             timeLimit = GUI.TextField(new Rect(560, 80, 100, 20), timeLimit);
-            GUI.Label(new Rect(495, 105, 100, 20), "Field Type");
-            fieldType = GUI.SelectionGrid(new Rect(495, 130, 100, 50), fieldType, new string[] { "Normal Field", "Skills Field" }, 1, "toggle");
+            GUI.Box(new Rect(480, 100, 300, 10), "", "separator");
+            GUI.Label(new Rect(495, 110, 100, 20), "Field Type");
+            fieldType = GUI.SelectionGrid(new Rect(495, 135, 100, 50), fieldType, new string[] { "Normal Field", "Skills Field" }, 1, "toggle");
+            GUI.Box(new Rect(480, 185, 300, 10), "", "separator");
+            disable_ = GUI.Toggle(new Rect(495, 195, 200, 20), disable_, "Disable bot when time is up", "checkbox");
             tracker.GetComponent<ModeTrackingScript>().robotType = toolbar;
             tracker.GetComponent<ModeTrackingScript>().startTile = startTile;
+            tracker.GetComponent<ModeTrackingScript>().disableOnTimeUp = disable_;
             if (advanced)
                 showSettingsWindow = true;
             if(solo)
 	        {
 		        fieldType = 0;
                 timeLimit = "0";
+                disable_ = false;
 	        }
 	        if(roboSkills)
 	        {
 		        fieldType = 1;
                 timeLimit = "60";
+                disable_ = true;
 	        }
             if (start)
             {

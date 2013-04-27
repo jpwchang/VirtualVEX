@@ -23,7 +23,7 @@ public class Field : vvConsoleParent {
     protected bool useTimer_;
     protected float timeLimit_;
     protected float timeLeft_;
-    protected float actualTimeLimit_;
+    protected float strategicTime_;
 
     /// <summary>
     /// Get the robot currently attached to the field
@@ -40,7 +40,7 @@ public class Field : vvConsoleParent {
     {
         get
         {
-            return actualTimeLimit_;
+            return timeLimit_;
         }
     }
 
@@ -67,7 +67,6 @@ public class Field : vvConsoleParent {
         consoleRect_ = new Rect(Screen.width - 420, 210, 400, 300);
         timeLimit_ = tracker.GetComponent<ModeTrackingScript>().timeLimit;
         timeLeft_ = timeLimit_;
-        actualTimeLimit_ = timeLimit_;
         useTimer_ = true;
 
         cmdTable_["reset"] = new ConsoleAction(reset);
@@ -80,8 +79,7 @@ public class Field : vvConsoleParent {
         cmdTable_["status"] = new ConsoleAction(status);
         cmdTable_["set-waypoint"] = new ConsoleAction(waypointSet);
 
-        outBuffer_ = "VirtualVEX, Version 2.0.0 (Beta)\n"
-            + "This is a development build. Some features may be unstable.\n"
+        outBuffer_ = "VirtualVEX, Version 2.0.0\n"
             + "Console initialized\n\n";
 	}
 
@@ -91,10 +89,10 @@ public class Field : vvConsoleParent {
     protected void doUpdate()
     {
         if (scr_.getViewMode == ModeTrackingScript.VIEWMODE_STRATEGIC && timeLimit_ > 0 && timeLeft_ > 0)
-            timeLimit_ += Time.deltaTime;
+            strategicTime_ += Time.deltaTime;
         if (useTimer_ && timeLimit_ > 0 && timeLeft_ > 0) //How much time is left in the match?
         {
-            timeLeft_ = timeLimit_ - Time.timeSinceLevelLoad;
+            timeLeft_ = timeLimit_ + strategicTime_ - Time.timeSinceLevelLoad;
         }
     }
 

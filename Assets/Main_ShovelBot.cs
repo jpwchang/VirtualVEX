@@ -17,6 +17,7 @@ public class Main_ShovelBot : vvRobotBase {
 
     private vvComponentCollider r1Collider;
     private vvComponentCollider l1Collider;
+    private vvComponentCollider scoopCollider;
 
     public float getLPower
     {
@@ -31,17 +32,19 @@ public class Main_ShovelBot : vvRobotBase {
     {
         r1Collider = armR1.GetComponent<vvComponentCollider>();
         l1Collider = armL1.GetComponent<vvComponentCollider>();
+        scoopCollider = scoop.GetComponent<vvComponentCollider>();
         robotID_ = "Scooper Bot";
     }
 
     void FixedUpdate()
     {
+        bool timeUp = owner.getTimeLimit > 0 && owner.getTimeLeft <= 0 && tracker_.GetComponent<ModeTrackingScript>().disableOnTimeUp;
         //The robot should only move if the round hasn't ended
         //The only exeption is in solo untimed, which has no end.
-        if (complete_ && (owner.getTimeLeft > 0 || owner.getTimeLimit == 0))
+        if (complete_ && !timeUp)
         {
             //Apply operator inputs to the proper mechanisms on the robot.
-            if (r1Collider.isColliding || l1Collider.isColliding)
+            if (scoopCollider.isColliding || r1Collider.isColliding || l1Collider.isColliding)
             {
                 if ((lMotorPowerPrev_ > 0 && motor[1] > 0) || (lMotorPowerPrev_ < 0 && motor[1] < 0))
                     setMotors(frontLeft, backLeft, 0);
@@ -80,7 +83,7 @@ public class Main_ShovelBot : vvRobotBase {
         }
 
         //stop robot if time is up
-        if (owner.getTimeLimit > 0 && owner.getTimeLeft <= 0)
+        if (timeUp)
         {
             frontRight.motorTorque = 0;
             frontLeft.motorTorque = 0;

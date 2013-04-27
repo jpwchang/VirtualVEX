@@ -43,9 +43,10 @@ public class Main_RollerBot : vvRobotBase
 
     void FixedUpdate()
     {
+        bool timeUp = owner.getTimeLimit > 0 && owner.getTimeLeft <= 0 && tracker_.GetComponent<ModeTrackingScript>().disableOnTimeUp;
         //The robot should only move if the round hasn't ended
         //The only exeption is in solo untimed, which has no end.
-        if (complete_ && (owner.getTimeLeft > 0 || owner.getTimeLimit == 0))
+        if (complete_ && !timeUp)
         {
             //Apply operator inputs to the proper mechanisms on the robot.
             if (intakeCollider.isColliding || r1Collider.isColliding || l1Collider.isColliding)
@@ -86,7 +87,7 @@ public class Main_RollerBot : vvRobotBase
         }
 
         //stop robot if time is up
-        if (owner.getTimeLimit > 0 && owner.getTimeLeft <= 0)
+        if (timeUp)
         {
             frontRight.motorTorque = 0;
             frontLeft.motorTorque = 0;
