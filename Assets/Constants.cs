@@ -12,8 +12,8 @@ public class Constants {
             + "\nMani Gnanasivam\nKendrick Dlima\nNikhil Desai\nArt Kalb"
             + "\n\nDeveloped in Unity v." + Application.unityVersion;
 #if UNITY_STANDALONE_WIN
-    public static readonly string VERSION = "2.0.1";
+    public static readonly string VERSION = "3.0 Alpha 1";
 #else
-    public static readonly string VERSION = "2.0.1";
+    public static readonly string VERSION = "3.0 Alpha (Linux64)";
 #endif
 }

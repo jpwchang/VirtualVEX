@@ -24,11 +24,12 @@ public class Menu : MonoBehaviour {
     private int level = 0;
     private WWW www;
     private WWW updater;
+    private string[] robotsTossup = { "Clawbot", "Roller Bot" };
     private string[] robotsSack = { "Clawbot", "Scooper Bot", "Roller Bot", "Shovel Bot" };
     private string[] robotsGateway = { "Clawbot", "ConveyorBot", "H. Roller", "V. ConveyorBot", "V. Roller" };
     private string[] startTilesSack = { "Red 1", "Red 2", "Blue 1", "Blue 2" };
     private string[] tabs = { "SIMULATION", "GETTING STARTED", "NEWS & UPDATES" };
-    private string[] games = { "Gateway", "Sack Attack" };
+    private string[] games = { "Gateway", "Sack Attack", "Toss Up" };
     private string[] startTilesGateway = { "Blue 1", "Red 1", "Blue 2", "Red 2" };
     private string[] startTiles;
     private string[] toolStrs;
@@ -45,6 +46,7 @@ public class Menu : MonoBehaviour {
     private int fieldType = 0;
     private const int GAME_GATEWAY = 0;
     private const int GAME_SACK = 1;
+    private const int GAME_TOSS = 2;
     private bool disable_;
 
     /// <summary>
@@ -93,6 +95,11 @@ public class Menu : MonoBehaviour {
         else if (curGameType == GAME_GATEWAY)
         {
             toolStrs = robotsGateway;
+            startTiles = startTilesGateway;
+        }
+        else if(curGameType == GAME_TOSS)
+        {
+            toolStrs = robotsTossup;
             startTiles = startTilesGateway;
         }
     }
@@ -161,9 +168,29 @@ public class Menu : MonoBehaviour {
                 ModeTrackingScript mts = tracker.GetComponent<ModeTrackingScript>();
                 mts.mode = fieldType;
                 if (fieldType == 0)
-                    level = curGameType == GAME_GATEWAY ? 0 : 2;
+                {
+                    switch(curGameType)
+                    {
+                        case GAME_GATEWAY:
+                            level = 0;
+                            break;
+                        case GAME_SACK:
+                            level = 2;
+                            break;
+                    }
+                }
                 else if (fieldType == 1)
-                    level = curGameType == GAME_GATEWAY ? 1 : 2;
+                {
+                    switch(curGameType)
+                    {
+                        case GAME_GATEWAY:
+                            level = 1;
+                            break;
+                        case GAME_SACK:
+                            level = 2;
+                            break;
+                    }
+                }
                 try
                 {
                     int limit = System.Int32.Parse(timeLimit);
@@ -279,7 +306,7 @@ public class Menu : MonoBehaviour {
     void settingsFunction(int windowID)
     {
         GUI.Label(new Rect(30, 30, Screen.width - 30, Screen.height - 30), "Change Game:");
-        curGameType = GUI.SelectionGrid(new Rect(30, 50, 150, 40), curGameType, games, 1, "toggle");
+        curGameType = GUI.SelectionGrid(new Rect(30, 50, 150, 60), curGameType, games, 1, "toggle");
         bool close = GUI.Button(new Rect(30, 340, 120, 30), "OK") || GUI.Button(new Rect(355, 0, 40, 18), "", "close");
         if (close)
         {
