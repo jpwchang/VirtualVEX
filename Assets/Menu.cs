@@ -8,10 +8,6 @@ using System.Diagnostics;
 public class Menu : MonoBehaviour {
 	public Texture2D logo_;
     public Texture2D contrib_;
-    public Texture2D bg1610;
-    public Texture2D bg43;
-    public Texture2D bg54;
-    public Texture2D bg169;
     public Texture2D aboutScreen;
     public GameObject tracker;
     public GUISkin skin;
@@ -31,6 +27,7 @@ public class Menu : MonoBehaviour {
     private string[] tabs = { "SIMULATION", "GETTING STARTED", "NEWS & UPDATES" };
     private string[] games = { "Gateway", "Sack Attack", "Toss Up" };
     private string[] startTilesGateway = { "Blue 1", "Red 1", "Blue 2", "Red 2" };
+    private string[] startTilesToss_ = { "Red 1", "Blue 1", "Red 2", "Blue 2" };
     private string[] startTiles;
     private string[] toolStrs;
     private Rect windowRect;
@@ -67,7 +64,7 @@ public class Menu : MonoBehaviour {
     /// <returns></returns>
     IEnumerator Start()
     {
-        curGameType = GAME_SACK;
+        curGameType = GAME_TOSS;
         toolStrs = robotsSack;
         startTiles = startTilesSack;
 	    www = new WWW("https://sites.google.com/site/virtualvex/project-updates/onelastrally/Update.txt");
@@ -100,7 +97,7 @@ public class Menu : MonoBehaviour {
         else if(curGameType == GAME_TOSS)
         {
             toolStrs = robotsTossup;
-            startTiles = startTilesGateway;
+            startTiles = startTilesToss_;
         }
     }
 
@@ -109,43 +106,33 @@ public class Menu : MonoBehaviour {
     /// </summary>
     void OnGUI () {
         GUI.skin = transparent;
-        double aspectRatio = (double)Screen.width / (double)Screen.height;
-        if(abs(16.0 / 10.0 - aspectRatio) < 0.1)
-            GUI.Box(new Rect(0, 0, Screen.width, Screen.height), bg1610);
-        else if (abs(4.0 / 3.0 - aspectRatio) < 0.1)
-            GUI.Box(new Rect(0, 0, Screen.width, Screen.height), bg43);
-        else if (abs(16.0 / 9.0 - aspectRatio) < 0.1)
-            GUI.Box(new Rect(0, 0, Screen.width, Screen.height), bg169);
-        else
-            GUI.Box(new Rect(0, 0, Screen.width, Screen.height), bg54);
         GUI.Box(new Rect(0, 6, 400, 80), logo_);
         GUI.Label(new Rect(Screen.width - 200, 16, 200, 80), "Start Page");
         GUI.Label(new Rect(10, Screen.height - 35, 100, 35), Constants.VERSION, "versionlabel");
         GUI.Box(new Rect(Screen.width - 270, Screen.height - 90, 270, 90), contrib_);
         GUI.skin = skin;
-        GUI.BeginGroup(new Rect(Screen.width / 2 - 400, Screen.height / 2 - 200, 800, 450));
-        GUI.Box(new Rect(0, 49, 800, 400), "");
+        GUI.BeginGroup(new Rect(10, 100, 800, 450));
         curTab = GUI.Toolbar(new Rect(0, 0, 500, 50), curTab, tabs);
         GUI.skin = controlSkin;
         if (curTab == 0)
         {
-            GUI.Box(new Rect(5, 55, 210, 205), "Starting Tile");
-            GUI.Box(new Rect(220, 55, 130, 300), "Robot Type");
-            GUI.Box(new Rect(355, 55, 130, 300), "Game Presets");
-            GUI.Box(new Rect(490, 55, 300, 300), "Game Settings");
-            toolbar = GUI.SelectionGrid(new Rect(225, 80, 120, 33*toolStrs.Length), toolbar, toolStrs, 1);
-            startTile = GUI.SelectionGrid(new Rect(10, 80, 200, 160), startTile, startTiles, 2);
-            bool solo = GUI.Button(new Rect(360, 80, 120, 30), "Solo Untimed");
-            bool roboSkills = GUI.Button(new Rect(360, 120, 120, 30), "Robot Skills");
-            bool start = GUI.Button(new Rect(5, 270, 150, 40), "Start Simulation");
-            bool advanced = GUI.Button(new Rect(490, 360, 120, 30), "Advanced Settings");
-            GUI.Label(new Rect(495, 80, 100, 20), "Time Limit");
-            timeLimit = GUI.TextField(new Rect(560, 80, 100, 20), timeLimit);
-            GUI.Box(new Rect(480, 100, 300, 10), "", "separator");
-            GUI.Label(new Rect(495, 110, 100, 20), "Field Type");
-            fieldType = GUI.SelectionGrid(new Rect(495, 135, 100, 50), fieldType, new string[] { "Normal Field", "Skills Field" }, 1, "toggle");
-            GUI.Box(new Rect(480, 185, 300, 10), "", "separator");
-            disable_ = GUI.Toggle(new Rect(495, 195, 200, 20), disable_, "Disable bot when time is up", "checkbox");
+            GUI.Box(new Rect(5, 65, 210, 205), "Starting Tile");
+            GUI.Box(new Rect(220, 65, 130, 300), "Robot Type");
+            GUI.Box(new Rect(355, 65, 130, 300), "Game Presets");
+            GUI.Box(new Rect(490, 65, 300, 300), "Game Settings");
+            toolbar = GUI.SelectionGrid(new Rect(225, 90, 120, 33*toolStrs.Length), toolbar, toolStrs, 1);
+            startTile = GUI.SelectionGrid(new Rect(10, 90, 200, 160), startTile, startTiles, 2);
+            bool solo = GUI.Button(new Rect(360, 90, 120, 30), "Solo Untimed");
+            bool roboSkills = GUI.Button(new Rect(360, 130, 120, 30), "Robot Skills");
+            bool start = GUI.Button(new Rect(5, 280, 150, 40), "Start Simulation");
+            bool advanced = GUI.Button(new Rect(490, 370, 120, 30), "Advanced Settings");
+            GUI.Label(new Rect(495, 90, 100, 20), "Time Limit");
+            timeLimit = GUI.TextField(new Rect(560, 90, 100, 20), timeLimit);
+            GUI.Box(new Rect(480, 110, 300, 10), "", "separator");
+            GUI.Label(new Rect(495, 120, 100, 20), "Field Type");
+            fieldType = GUI.SelectionGrid(new Rect(495, 145, 100, 50), fieldType, new string[] { "Normal Field", "Skills Field" }, 1, "toggle");
+            GUI.Box(new Rect(480, 195, 300, 10), "", "separator");
+            disable_ = GUI.Toggle(new Rect(495, 205, 200, 20), disable_, "Disable bot when time is up", "checkbox");
             tracker.GetComponent<ModeTrackingScript>().robotType = toolbar;
             tracker.GetComponent<ModeTrackingScript>().startTile = startTile;
             tracker.GetComponent<ModeTrackingScript>().disableOnTimeUp = disable_;
@@ -177,6 +164,9 @@ public class Menu : MonoBehaviour {
                         case GAME_SACK:
                             level = 2;
                             break;
+                        case GAME_TOSS:
+                            level = 3;
+                            break;
                     }
                 }
                 else if (fieldType == 1)
@@ -188,6 +178,9 @@ public class Menu : MonoBehaviour {
                             break;
                         case GAME_SACK:
                             level = 2;
+                            break;
+                        case GAME_TOSS:
+                            level = 3;
                             break;
                     }
                 }
@@ -206,13 +199,13 @@ public class Menu : MonoBehaviour {
         }
         else if (curTab == 1)
         {
-            GUI.Box(new Rect(5, 55, 300, 120), "Documentation", "score");
-            GUI.Label(new Rect(10, 80, 290, 110), "The VirtualVEX online documentation provides full help on all features of the program.");
-            bool help = GUI.Button(new Rect(10, 145, 130, 25), "View Documentation");
-            GUI.Box(new Rect(310, 55, 300, 120), "Website", "score");
-            GUI.Label(new Rect(315, 80, 290, 110), "Visit the official VirtualVEX website for news, downloads, help, source code, and much more.");
-            bool site = GUI.Button(new Rect(315, 145, 130, 25), "Visit Website");
-            bool abt = GUI.Button(new Rect(5, 270, 150, 40), "About VirtualVEX");
+            GUI.Box(new Rect(5, 65, 300, 120), "Documentation", "score");
+            GUI.Label(new Rect(10, 90, 290, 110), "The VirtualVEX online documentation provides full help on all features of the program.");
+            bool help = GUI.Button(new Rect(10, 155, 130, 25), "View Documentation");
+            GUI.Box(new Rect(310, 65, 300, 120), "Website", "score");
+            GUI.Label(new Rect(315, 90, 290, 110), "Visit the official VirtualVEX website for news, downloads, help, source code, and much more.");
+            bool site = GUI.Button(new Rect(315, 155, 130, 25), "Visit Website");
+            bool abt = GUI.Button(new Rect(5, 280, 150, 40), "About VirtualVEX");
             if (abt)
                 showAboutWindow = true;
             if (help)
@@ -222,14 +215,14 @@ public class Menu : MonoBehaviour {
         }
         else if (curTab == 2)
         {
-            GUI.Box(new Rect(5, 55, 400, 350), "Latest News", "score");
+            GUI.Box(new Rect(5, 65, 400, 350), "Latest News", "score");
             if (!www.isDone)
-                GUI.Box(new Rect(10, 80, 390, 320), "Loading News");
+                GUI.Box(new Rect(10, 90, 390, 320), "Loading News");
             else
-                GUI.Box(new Rect(10, 80, 390, 320), str);
-            GUI.Box(new Rect(410, 55, 300, 120), "Check for Updates", "score");
-            GUI.Label(new Rect(415, 80, 290, 110), "Keep VirtualVEX up to date by checking for the latest patches and updates.");
-            bool check = GUI.Button(new Rect(420, 145, 150, 25), "Check Now");
+                GUI.Box(new Rect(10, 90, 390, 320), str);
+            GUI.Box(new Rect(410, 65, 300, 120), "Check for Updates", "score");
+            GUI.Label(new Rect(415, 90, 290, 110), "Keep VirtualVEX up to date by checking for the latest patches and updates.");
+            bool check = GUI.Button(new Rect(420, 155, 150, 25), "Check Now");
             if (check)
                 showWindow = true;
         }

@@ -79,7 +79,7 @@ public class Field : vvConsoleParent {
         cmdTable_["status"] = new ConsoleAction(status);
         cmdTable_["set-waypoint"] = new ConsoleAction(waypointSet);
 
-        outBuffer_ = "VirtualVEX, Version 2.0.0\n"
+        outBuffer_ = "VirtualVEX, Version " + Constants.VERSION + "\n"
             + "Console initialized\n\n";
 	}
 

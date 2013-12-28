@@ -27,6 +27,10 @@ public class TUField : Field {
 
         vvIO.vvConsole.setConsoleParent(this);
 
+        redTile2_ = new Vector3(-1.52f, 0.77f, -1.063f);
+        redTile1_ = new Vector3(-1.52f, 0.77f, -0.415f);
+        blueTile2_ = new Vector3(1.52f, 0.77f, -1.063f);
+        blueTile1_ = new Vector3(1.52f, 0.77f, -0.415f);
         Transform selectedBot = clawbot;
 
         switch(scr_.robotType)
@@ -38,10 +42,52 @@ public class TUField : Field {
                 selectedBot = nz;
                 break;
         }
+        switch (scr_.startTile)
+        {
+            case 0:
+                selectedBot.position = redTile1_;
+                selectedBot.eulerAngles = new Vector3(0, 90, 0);
+                break;
+            case 1:
+                selectedBot.position = blueTile1_;
+                selectedBot.eulerAngles = new Vector3(0, -90, 0);
+                break;
+            case 2:
+                selectedBot.position = redTile2_;
+                selectedBot.eulerAngles = new Vector3(0, 90, 0);
+                break;
+            case 3:
+                selectedBot.position = blueTile2_;
+                selectedBot.eulerAngles = new Vector3(0, -90, 0);
+                break;
+        }
+        robot_ = Instantiate(selectedBot);
 	}
 	
 	// Update is called once per frame
 	void Update () {
         doUpdate();
 	}
+
+    void OnGUI()
+    {
+        GUI.depth = 1;
+        GUI.skin = skin;
+        if (scr_.showScore)
+        {
+            GUI.Box(new Rect(20, 75, 120, 30), "Red: " + (redScore), "Score");
+            GUI.Box(new Rect(20, 105, 120, 30), "Blue: " + (blueScore), "Score");
+        }
+
+        if (scr_.showML)
+        {
+            bool redLoad = GUI.Button(new Rect(160, 75, 110, 25), "Red match load");
+            bool blueLoad = GUI.Button(new Rect(160, 105, 110, 25), "Blue match load");
+            
+        }
+        if (scr_.showConsole)
+        {
+            consoleRect_ = GUI.Window(1, consoleRect_, consoleFunction, "Console");
+        }
+    }
 }
