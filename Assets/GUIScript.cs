@@ -130,21 +130,13 @@ public class GUIScript : MonoBehaviour {
         string b3style = curMenu == 3 ? "menuitempress" : "menuitem";
         string b4style = curMenu == 4 ? "menuitempress" : "menuitem";
 
-        GUI.Box(new Rect(0, 0, Screen.width, 22), "", "menubar");
-        if (GUI.Button(new Rect(0, 1, 30, 20), "File", b1style))
-            curMenu = curMenu == 1 ? 0 : 1;
-        if (GUI.Button(new Rect(30, 1, 70, 20), "Simulation", b2style))
-            curMenu = curMenu == 2 ? 0 : 2;
-        if (GUI.Button(new Rect(100, 1, 40, 20), "View", b3style))
-            curMenu = curMenu == 3 ? 0 : 3;
-        if (GUI.Button(new Rect(140, 1, 40, 20), "Help", b4style))
-            curMenu = curMenu == 4 ? 0 : 4;
+        GUI.Box(new Rect(0, 0, Screen.width, 22), ""); //The bar itself
 
         switch (curMenu)
         {
             case 1:
                 {
-                    GUI.Box(new Rect(0, 22, 130, 40), "", "menudrop");
+                    GUI.Box(new Rect(0, 20, 130, 42), "", "menudrop");
                     if (GUI.Button(new Rect(0, 22, 130, 20), new GUIContent("        Main Menu", "Close the simulation and return to the main menu"), "dropdownitem"))
                     {
                         Destroy(tracker_);
@@ -156,7 +148,7 @@ public class GUIScript : MonoBehaviour {
                 }
             case 2:
                 {
-                    GUI.Box(new Rect(30, 22, 130, 100), "", "menudrop");
+                    GUI.Box(new Rect(30, 20, 130, 102), "", "menudrop");
                     if (GUI.Button(new Rect(30, 22, 130, 20), "        " + pblabel, "dropdownitem"))
                     {
                         if (Time.timeScale == 1)
@@ -178,7 +170,7 @@ public class GUIScript : MonoBehaviour {
                 }
             case 3:
                 {
-                    GUI.Box(new Rect(100, 22, 130, 190), "", "menudrop");
+                    GUI.Box(new Rect(100, 20, 130, 192), "", "menudrop");
                     trackerScript.showCC = GUI.Toggle(new Rect(100, 22, 130, 20), trackerScript.showCC, new GUIContent(" Camera Controls", "Toggle visibility of camera position controls"), "menutoggle");
                     trackerScript.showTimer = GUI.Toggle(new Rect(100, 42, 130, 20), trackerScript.showTimer, new GUIContent(" Timer", "Toggle visibility of game timer"), "menutoggle");
                     trackerScript.showScore = GUI.Toggle(new Rect(100, 62, 130, 20), trackerScript.showScore, new GUIContent(" Score", "Toggle scorekeeper"), "menutoggle");
@@ -192,7 +184,7 @@ public class GUIScript : MonoBehaviour {
                 }
             case 4:
                 {
-                    GUI.Box(new Rect(140, 22, 130, 40), "", "menudrop");
+                    GUI.Box(new Rect(140, 20, 130, 42), "", "menudrop");
                     if (GUI.Button(new Rect(140, 22, 130, 20), new GUIContent("        Documentation", "View help on how to use VirtualVEX (This will open in your browser)"), "dropdownitem"))
                         Process.Start("https://sites.google.com/site/virtualvex/knowledge-base"); ;
                     if (GUI.Button(new Rect(140, 42, 130, 20), new GUIContent("        About", "About VirtualVEX"), "dropdownitem"))
@@ -203,6 +195,15 @@ public class GUIScript : MonoBehaviour {
                     break;
                 }
         }
+
+        if (GUI.Button(new Rect(0, 1, 30, 20), "File", b1style))
+            curMenu = curMenu == 1 ? 0 : 1;
+        if (GUI.Button(new Rect(30, 1, 70, 20), "Simulation", b2style))
+            curMenu = curMenu == 2 ? 0 : 2;
+        if (GUI.Button(new Rect(100, 1, 40, 20), "View", b3style))
+            curMenu = curMenu == 3 ? 0 : 3;
+        if (GUI.Button(new Rect(140, 1, 40, 20), "Help", b4style))
+            curMenu = curMenu == 4 ? 0 : 4;
     }
 
     /// <summary>

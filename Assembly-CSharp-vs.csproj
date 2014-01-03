@@ -73,6 +73,7 @@
      <Compile Include="Assets\SAField.cs" />
      <Compile Include="Assets\SAGoalScript.cs" />
      <Compile Include="Assets\TUField.cs" />
+     <Compile Include="Assets\TUGoalScript.cs" />
      <Compile Include="Assets\Update.cs" />
      <Compile Include="Assets\VIntakeScript.cs" />
      <Compile Include="Assets\WaypointDescription.cs" />
@@ -91,9 +92,6 @@
      <None Include="Assets\Standard Assets\Toon Shading\Sources\Shaders\Toony-Lighted.shader" />
  <Reference Include="Assembly-UnityScript-firstpass">
  <HintPath>Library\ScriptAssemblies\Assembly-UnityScript-firstpass.dll</HintPath>
- </Reference>
- <Reference Include="MyAssembly">
- <HintPath>Assets\MyAssembly.dll</HintPath>
  </Reference>
   </ItemGroup>
   <ItemGroup>

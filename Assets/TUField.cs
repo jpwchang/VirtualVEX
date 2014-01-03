@@ -10,10 +10,7 @@ public class TUField : Field {
     public Transform beachball;
     public GUISkin skin;
 
-    private GameObject redCyl_;
-    private GameObject blueCyl_;
-    private GameObject goalZone_;
-    private GameObject midZone_;
+    private GameObject[] goals_;
     private Vector3 redTile1_;
     private Vector3 redTile2_;
     private Vector3 blueTile1_;
@@ -26,6 +23,8 @@ public class TUField : Field {
         FieldInit();
 
         vvIO.vvConsole.setConsoleParent(this);
+
+        goals_ = GameObject.FindGameObjectsWithTag("goal");
 
         redTile2_ = new Vector3(-1.52f, 0.77f, -1.063f);
         redTile1_ = new Vector3(-1.52f, 0.77f, -0.415f);
@@ -67,6 +66,16 @@ public class TUField : Field {
 	// Update is called once per frame
 	void Update () {
         doUpdate();
+
+        int blueTotal = 0;
+        int redTotal = 0;
+        foreach(GameObject o in goals_)
+        {
+            blueTotal += o.GetComponent<TUGoalScript>().getBlueScore;
+            redTotal += o.GetComponent<TUGoalScript>().getRedScore;
+        }
+        blueScore = blueTotal;
+        redScore = redTotal;
 	}
 
     void OnGUI()
