@@ -19,6 +19,7 @@ public class Field : vvConsoleParent {
     public Transform dbot;
     public Transform zackbot;
     public Transform shovel;
+    public Transform tu_roller;
     protected Object robot_;
     protected bool useTimer_;
     protected float timeLimit_;

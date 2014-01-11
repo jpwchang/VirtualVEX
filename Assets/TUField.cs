@@ -26,10 +26,10 @@ public class TUField : Field {
 
         goals_ = GameObject.FindGameObjectsWithTag("goal");
 
-        redTile2_ = new Vector3(-1.52f, 0.77f, -1.063f);
-        redTile1_ = new Vector3(-1.52f, 0.77f, -0.415f);
-        blueTile2_ = new Vector3(1.52f, 0.77f, -1.063f);
-        blueTile1_ = new Vector3(1.52f, 0.77f, -0.415f);
+        redTile2_ = new Vector3(-1.5f, 0.9f, -1.063f);
+        redTile1_ = new Vector3(-1.5f, 0.9f, -0.415f);
+        blueTile2_ = new Vector3(1.5f, 0.9f, -1.063f);
+        blueTile1_ = new Vector3(1.5f, 0.9f, -0.415f);
         Transform selectedBot = clawbot;
 
         switch(scr_.robotType)
@@ -38,7 +38,7 @@ public class TUField : Field {
                 selectedBot = clawbot;
                 break;
             case 1:
-                selectedBot = nz;
+                selectedBot = tu_roller;
                 break;
         }
         switch (scr_.startTile)

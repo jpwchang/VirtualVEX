@@ -53,6 +53,7 @@
      <Compile Include="Assets\Extra GUI Skins\SkinTest.cs" />
      <Compile Include="Assets\Field.cs" />
      <Compile Include="Assets\GUIScript.cs" />
+     <Compile Include="Assets\GameObjects2014\BallPhysics.cs" />
      <Compile Include="Assets\GatewayField.cs" />
      <Compile Include="Assets\GoalScript.cs" />
      <Compile Include="Assets\IntakeScript.cs" />
