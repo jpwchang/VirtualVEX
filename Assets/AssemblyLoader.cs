@@ -208,7 +208,8 @@ public class vvRobotBase : MonoBehaviour
             //Load the user code
             Assembly a = LoadAssembly();
 
-            System.Type type = a.GetType("source");
+            System.Type sourceType = a.GetType("source");
+            System.Type type = sourceType.BaseType;
 
             FieldInfo rtData = type.GetField("vexRT");
             float[] vexrt = (rtData.GetValue(null) as float[]);
@@ -242,7 +243,7 @@ public class vvRobotBase : MonoBehaviour
                 setrt.Invoke(null, new object[] { 4, Input.GetAxis("AltFire2") * 127 });
             }
             //start driver control
-            MethodInfo m = type.GetMethod("driver_control");
+            MethodInfo m = sourceType.GetMethod("driver_control");
             m.Invoke(null, null);
             FieldInfo motorData = type.GetField("motor");
             motor = (motorData.GetValue(null) as float[]);

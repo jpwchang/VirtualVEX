@@ -14,14 +14,15 @@ public class NewBehaviourScript : MonoBehaviour
 
     public void OnAssemblyLoaded(WWWAssembly loadedAssembly)
     {
-        System.Type type = loadedAssembly.Assembly.GetType("source");
+        System.Type sourceType = loadedAssembly.Assembly.GetType("source");
+        System.Type type = sourceType.BaseType;
 
         //FieldInfo field = type.GetField("myString");
         FieldInfo rtData = type.GetField("vexRT");
         float[] vexrt = (rtData.GetValue(null) as float[]);
         MethodInfo setrt = type.GetMethod("setRTValue");
         setrt.Invoke(null, new object[] { 0, Input.GetAxis("Vertical") });
-        MethodInfo m = type.GetMethod("driver_control");
+        MethodInfo m = sourceType.GetMethod("driver_control");
         object temp = m.Invoke(null, null);
         m_MessageString = (temp as string) + "\n";
     }

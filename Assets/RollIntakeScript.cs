@@ -29,7 +29,6 @@ public class RollIntakeScript : MonoBehaviour
     void OnTriggerStay(Collider other)
     {
         direction = -1.0f * transform.forward;
-        print(direction);
         speed = loader.motor[3];
         if (other.attachedRigidbody)
         {
