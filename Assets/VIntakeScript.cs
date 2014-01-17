@@ -17,12 +17,12 @@ public class VIntakeScript : MonoBehaviour {
     void OnTriggerStay(Collider other)
     {
         direction = transform.up;
-        speed = -loader.motor[3]/5;
+        speed = -loader.getMotorValue[3]/5;
         if (other.attachedRigidbody)
         {
             if (other.attachedRigidbody.gameObject.tag == "Red" || other.attachedRigidbody.gameObject.tag == "Blue")
             {
-                if (-loader.motor[3] > 0)
+                if (-loader.getMotorValue[3] > 0)
                     other.attachedRigidbody.useGravity = false;
                 else
                     other.attachedRigidbody.useGravity = true;

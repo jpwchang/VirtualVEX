@@ -29,15 +29,15 @@ public class RollIntakeScript : MonoBehaviour
     void OnTriggerStay(Collider other)
     {
         direction = -1.0f * transform.forward;
-        speed = loader.motor[3];
+        speed = loader.getMotorValue[3];
         if (other.attachedRigidbody)
         {
             if (isIntakeable(other)) //If the object is intakeable, apply a force to intake it
             {
                 if(speed >= 0) //We apply more force if intaking, because gravity helps with outtaking
-                    other.attachedRigidbody.AddForce(direction * (speed * 0.2f), ForceMode.Acceleration);
+                    other.attachedRigidbody.AddForce(direction * (speed * 0.19f), ForceMode.Acceleration);
                 else
-                    other.attachedRigidbody.AddForce(direction * (speed * 0.01f), ForceMode.Acceleration);
+                    other.attachedRigidbody.AddForce(direction * (speed * 0.03f), ForceMode.Acceleration);
             }
         }
     }

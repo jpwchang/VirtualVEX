@@ -32,6 +32,7 @@ public class ModeTrackingScript : MonoBehaviour {
     private bool statusBar_ = true;
     private bool showMenu_ = false;
     private bool chooseWP_ = false;
+    private int cameraMode_ = 0;
     private int curMenu = 0;
     private int pastMenu = 0;
     private Rect aboutRect;
@@ -43,6 +44,7 @@ public class ModeTrackingScript : MonoBehaviour {
     private List<WaypointDescription> waypoints_;
     private int curWaypoint_ = 0;
     private GameObject wpObject_ = null;
+    private string statusMsg_ = "";
 
     /// <summary>
     /// Get the timekeeping object
@@ -155,6 +157,24 @@ public class ModeTrackingScript : MonoBehaviour {
         set { disable_ = value; }
     }
 
+    /// <summary>
+    /// Get or set the status message
+    /// </summary>
+    public string status
+    {
+        get { return statusMsg_; }
+        set { statusMsg_ = value; }
+    }
+
+    /// <summary>
+    /// Get or set the camera mode
+    /// </summary>
+    public int getCameraMode
+    {
+        get { return cameraMode_; }
+        set { cameraMode_ = value; }
+    }
+
     public bool setIndex(int value)
     {
         if (value <= waypoints_.Count)
@@ -228,7 +248,6 @@ public class ModeTrackingScript : MonoBehaviour {
                         Vector3 world = Camera.main.ScreenToWorldPoint(new Vector3(temp.x, temp.y, 9.21f));
                         wp.worldPos = new Vector3(world.x, 0.0f, world.z);
                         waypoints_.Add(wp);
-                        print("" + wp.ToString());
                         chooseWP_ = false;
                     }
                 }

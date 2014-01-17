@@ -36,7 +36,8 @@ public class vvRobotBase : MonoBehaviour
     protected bool complete_ = true;
     protected bool retried_ = false;
     public GameObject timer;
-    public float[] motor;
+    protected float[] motor;
+    protected float[] SensorValue;
     public GUISkin skin;
     private float pastVelocity_ = 0;
     private float acceleration_ = 0;
@@ -80,18 +81,21 @@ public class vvRobotBase : MonoBehaviour
     /// <summary>
     /// Assign a given power level to a motor on the virtual robot.
     /// This allows components of your robot other than the drivebase to move.
-    /// There are no actual simulated motors on any part of a VirtualVEX simulated robot
-    /// other than the drivebase. Instead, this method simulates motor power by directly
-    /// adding a force to the given component, or GameObject.
+    /// This method is designed for moving parts that do not have an actual simulated motor.
+    /// One example of such a part is a linear slider.
+    /// This method simulates motor power by directly adding a force to the given component, or GameObject.
     /// As a result, you must specify a movement type. This tells the program what
     /// direction the component will be moving in and whether the motion is linear or rotational.
-    /// There are 6 available movement types:
-    /// <para>DIRECT_VERTICAL: Rotational, up and down, facing forward (or backward). Perfect for arms.</para>
-    /// <para>DIRECT_HORIZONTAL: Rotational, side to side. Perfect for claws.</para>
-    /// <para>DIRECT_SIDEWAYS: Rotational, up and down, facing left or right.</para>
+    /// There are 3 available movement types for linear motion:
     /// <para>LINEAR_VERTICAL: Straight up and down.</para>
     /// <para>LINEAR_HORIZONTAL: Straight forward and backward.</para>
     /// <para>LINEAR_SIDEWAYS: Straight left and right.</para>
+    /// For compatibility reasons, this method also enables angular motion for arms. However, this method
+    /// of angular motion is obsolete and the hinge joint version of setMotor should be used instead. For
+    /// compatibility, the following angulat movement types are allowed:
+    /// <para>DIRECT_VERTICAL: Rotational, up and down, facing forward (or backward). Perfect for arms.</para>
+    /// <para>DIRECT_HORIZONTAL: Rotational, side to side. Perfect for claws.</para>
+    /// <para>DIRECT_SIDEWAYS: Rotational, up and down, facing left or right.</para>
     /// All directions are relative to the robot. The default direction is DIRECT_VERTICAL.
     /// </summary>
     /// <param name="motor">Which motor to apply this to</param>
@@ -123,6 +127,28 @@ public class vvRobotBase : MonoBehaviour
                 break;
         }
     }
+    /// <summary>
+    /// Assign a given power level to a motor on the virtual robot.
+    /// This allows components of your robot other than the drivebase to move.
+    /// This version of setMotor is designed for parts that rotate, such as arms and claws.
+    /// The part must have a HingeJoint component (representing the motor axle) for this method to work.
+    /// The orientation of the HingeJoint automatically determines the axis of rotation.
+    /// </summary>
+    /// <param name="motor">Which motor to apply this to</param>
+    /// <param name="velocity">The motor's target velocity</param>
+    /// <param name="powerLevel">How much power the motor gets</param>
+    public void setMotor(GameObject motor, float velocity, float powerLevel)
+    {
+        if (velocity == 0.0f)
+            motor.hingeJoint.useMotor = false;
+        else
+        {
+            JointMotor hjMotor = motor.hingeJoint.motor;
+            hjMotor.targetVelocity = velocity;
+            hjMotor.force = 100;
+            motor.hingeJoint.motor = hjMotor;
+        }
+    }
 
     /// <summary>
     /// Set two drive motors to the same power level.
@@ -135,6 +161,14 @@ public class vvRobotBase : MonoBehaviour
     {
         setMotor(motor1, powerLevel);
         setMotor(motor2, powerLevel);
+    }
+
+    /// <summary>
+    /// Returns the motor power array
+    /// </summary>
+    public float[] getMotorValue
+    {
+        get { return motor; }
     }
 
     //End of public methods
@@ -158,7 +192,7 @@ public class vvRobotBase : MonoBehaviour
 #else
         assemblyURL_ = "file://" + Application.dataPath + "/main.dll";
 #endif
-        print(assemblyURL_);
+        SensorValue = new float[20];
         if (assemblyURL_ != "")
         {
             ReloadAssembly(assemblyURL_);
@@ -211,9 +245,13 @@ public class vvRobotBase : MonoBehaviour
             System.Type sourceType = a.GetType("source");
             System.Type type = sourceType.BaseType;
 
+            //Retrieve the controller values from the code
             FieldInfo rtData = type.GetField("vexRT");
             float[] vexrt = (rtData.GetValue(null) as float[]);
+            //retrieve the setRTValue function so we can call it
             MethodInfo setrt = type.GetMethod("setRTValue");
+            //retrieve the setSensorValue function so we can call it
+            MethodInfo setSensorValue = type.GetMethod("setSensorValue");
 
             //Joysticks detected - use joystick input
             if (Input.GetJoystickNames().Length > 0)
@@ -244,14 +282,35 @@ public class vvRobotBase : MonoBehaviour
             }
             //start driver control
             MethodInfo m = sourceType.GetMethod("driver_control");
-            m.Invoke(null, null);
+            m.Invoke(null, null); //call the user code's driver_control function
+            //Get the motor values from the code
             FieldInfo motorData = type.GetField("motor");
             motor = (motorData.GetValue(null) as float[]);
+            updateSensors(1.0f);
+            //Update the robot's local copy of sensor values
+            setSensorValue.Invoke(null, new object[] { SensorValue });
 
             text_ = "Time Remaining: " + (int)owner.getTimeLeft;
             acceleration_ = (rigidbody.velocity.magnitude - pastVelocity_) / Time.fixedDeltaTime;
             pastVelocity_ = rigidbody.velocity.magnitude;
         }
+    }
+
+    private void updateSensors(float step)
+    {
+        //update sensor values
+        if (motor[0] > 0.5f)
+            SensorValue[0] += step;
+        else if (motor[0] < -0.5f)
+            SensorValue[0] -= step;
+        if (motor[1] > 0.5f)
+            SensorValue[2] += step;
+        else if (motor[1] < -0.5f)
+            SensorValue[2] -= step;
+        if (motor[2] > 0.5f)
+            SensorValue[4] += step;
+        else if (motor[2] < 0.5f)
+            SensorValue[4] -= step;
     }
 
     void OnGUI()

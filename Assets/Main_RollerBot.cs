@@ -68,14 +68,23 @@ public class Main_RollerBot : vvRobotBase
             if (Mathf.Abs(motor[2]) > 5)
             {
                 tray.rigidbody.isKinematic = false;
-                if (motor[2] > 0)
+                if(motor[2] > 0)
                 {
-                    setMotor(armL1, -motor[2]);
-                    setMotor(armL2, -motor[2]);
-                    setMotor(armL3, -motor[2]);
-                    setMotor(armR1, -motor[2]);
-                    setMotor(armR2, -motor[2]);
-                    setMotor(armR3, -motor[2]);
+                    setMotor(armL1, -80, motor[2] * 1.5f);
+                    setMotor(armL2, -80, motor[2] * 1.5f);
+                    setMotor(armL3, -80, motor[2] * 1.5f);
+                    setMotor(armR1, -80, motor[2] * 1.5f);
+                    setMotor(armR2, -80, motor[2] * 1.5f);
+                    setMotor(armR3, -80, motor[2] * 1.5f);
+                }
+                else
+                {
+                    setMotor(armL1, 80, motor[2] * 1.5f);
+                    setMotor(armL2, 80, motor[2] * 1.5f);
+                    setMotor(armL3, 80, motor[2] * 1.5f);
+                    setMotor(armR1, 80, motor[2] * 1.5f);
+                    setMotor(armR2, 80, motor[2] * 1.5f);
+                    setMotor(armR3, 80, motor[2] * 1.5f);
                 }
             }
             else

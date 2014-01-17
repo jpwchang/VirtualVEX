@@ -16,7 +16,7 @@ public class NZIntakeScript : MonoBehaviour {
     void OnTriggerEnter(Collider other)
     {
         direction = transform.forward;
-        speed = loader.motor[3];
+        speed = loader.getMotorValue[3];
         if (other.attachedRigidbody)
         {
             if (other.attachedRigidbody.gameObject.tag == "Red" || other.attachedRigidbody.gameObject.tag == "Blue")
@@ -29,7 +29,7 @@ public class NZIntakeScript : MonoBehaviour {
     void OnTriggerStay(Collider other)
     {
         direction = transform.forward;
-        speed = loader.motor[3];
+        speed = loader.getMotorValue[3];
         if (other.attachedRigidbody)
         {
             if (other.attachedRigidbody.tag == "sack" || other.attachedRigidbody.tag == "bonus_sack")

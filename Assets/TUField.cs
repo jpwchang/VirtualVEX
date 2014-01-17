@@ -6,8 +6,8 @@ using System.Collections;
 /// </summary>
 public class TUField : Field {
 
-    public Transform bucky;
-    public Transform beachball;
+    public Transform buckyRed;
+    public Transform buckyBlue;
     public GUISkin skin;
 
     private GameObject[] goals_;
@@ -31,6 +31,8 @@ public class TUField : Field {
         blueTile2_ = new Vector3(1.5f, 0.9f, -1.063f);
         blueTile1_ = new Vector3(1.5f, 0.9f, -0.415f);
         Transform selectedBot = clawbot;
+
+        cmdTable_["match-load"] = new ConsoleAction(matchLoad);
 
         switch(scr_.robotType)
         {
@@ -92,11 +94,48 @@ public class TUField : Field {
         {
             bool redLoad = GUI.Button(new Rect(160, 75, 110, 25), "Red match load");
             bool blueLoad = GUI.Button(new Rect(160, 105, 110, 25), "Blue match load");
-            
+            if (redLoad)
+            {
+                if (redMLCount_ < 2)
+                {
+                    buckyRed.position = scr_.startTile == 0 ? redTile1_ : redTile2_;
+                    Instantiate(buckyRed);
+                    redMLCount_++;
+                }
+            }
+            if (blueLoad)
+            {
+                if (blueMLCount_ < 2)
+                {
+                    buckyBlue.position = scr_.startTile == 1 ? blueTile1_ : blueTile2_;
+                    Instantiate(buckyBlue);
+                    blueMLCount_++;
+                }
+            }
         }
         if (scr_.showConsole)
         {
             consoleRect_ = GUI.Window(1, consoleRect_, consoleFunction, "Console");
         }
+    }
+
+    public override void matchLoad(string arg)
+    {
+        if (arg != null)
+        {
+            switch (arg)
+            {
+                case "red":
+                    buckyRed.position = redTile1_;
+                    Instantiate(buckyRed);
+                    break;
+                case "blue":
+                    buckyBlue.position = blueTile1_;
+                    Instantiate(buckyBlue);
+                    break;
+            }
+        }
+        else
+            vvIO.vvConsole.println("Error: no argument found. Please specify \"red\" or \"blue\"");
     }
 }

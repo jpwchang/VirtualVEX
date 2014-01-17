@@ -29,14 +29,14 @@ public class vvComponentCollider : MonoBehaviour {
 
     void OnCollisionEnter(Collision c)
     {
-        if (c.collider.tag == "red_trough" || c.collider.tag == "blue_trough")
+        if (c.collider.tag == "red_trough" || c.collider.tag == "blue_trough" || c.collider.tag == "collidable")
             collision_ = true;
         velocity_ = c.relativeVelocity.magnitude;
     }
 
     void OnCollisionExit(Collision c)
     {
-        if (c.collider.tag == "red_trough" || c.collider.tag == "blue_trough")
+        if (c.collider.tag == "red_trough" || c.collider.tag == "blue_trough" || c.collider.tag == "collidable")
             collision_ = false;
     }
 }

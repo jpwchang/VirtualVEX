@@ -33,14 +33,14 @@ public class IntakeScript : MonoBehaviour {
             {
                 direction = transform.forward;
                 other.attachedRigidbody.useGravity = false;
-                if (-loader.motor[3] > 1)
+                if (-loader.getMotorValue[3] > 1)
                 {
-                    speed = loader.motor[3] / 100;
+                    speed = loader.getMotorValue[3] / 100;
                     // Add a WORLD force to the other objects
                     // Ignore the mass of the other objects so they all go the same speed (ForceMode.Acceleration)
                     other.attachedRigidbody.AddForce(direction * speed, ForceMode.Acceleration);
                 }
-                else if (Mathf.RoundToInt(loader.motor[3]) == 0)
+                else if (Mathf.RoundToInt(loader.getMotorValue[3]) == 0)
                 {
                     speed = 0;
                     // Add a WORLD force to the other objects
@@ -51,7 +51,7 @@ public class IntakeScript : MonoBehaviour {
                 {
                     direction = transform.forward;
                     Vector3.Reflect(direction, direction);
-                    speed = loader.motor[3] / 220;
+                    speed = loader.getMotorValue[3] / 220;
                     // Add a WORLD force to the other objects
                     // Ignore the mass of the other objects so they all go the same speed (ForceMode.Acceleration)
                     other.attachedRigidbody.AddForce(direction * speed);

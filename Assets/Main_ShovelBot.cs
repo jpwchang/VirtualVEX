@@ -65,12 +65,21 @@ public class Main_ShovelBot : vvRobotBase {
                 anchor.rigidbody.isKinematic = false;
                 if (motor[2] > 0)
                 {
-                    setMotor(armL1, -motor[2]/1.2f);
-                    setMotor(armL2, -motor[2]/1.2f);
-                    setMotor(armL3, -motor[2]/1.2f);
-                    setMotor(armR1, -motor[2]/1.2f);
-                    setMotor(armR2, -motor[2]/1.2f);
-                    setMotor(armR3, -motor[2]/1.2f);
+                    setMotor(armL1, -80, motor[2] * 1.5f);
+                    setMotor(armL2, -80, motor[2] * 1.5f);
+                    setMotor(armL3, -80, motor[2] * 1.5f);
+                    setMotor(armR1, -80, motor[2] * 1.5f);
+                    setMotor(armR2, -80, motor[2] * 1.5f);
+                    setMotor(armR3, -80, motor[2] * 1.5f);
+                }
+                else
+                {
+                    setMotor(armL1, 80, motor[2] * 1.5f);
+                    setMotor(armL2, 80, motor[2] * 1.5f);
+                    setMotor(armL3, 80, motor[2] * 1.5f);
+                    setMotor(armR1, 80, motor[2] * 1.5f);
+                    setMotor(armR2, 80, motor[2] * 1.5f);
+                    setMotor(armR3, 80, motor[2] * 1.5f);
                 }
             }
             else

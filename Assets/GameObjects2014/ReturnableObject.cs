@@ -16,7 +16,7 @@ public class ReturnableObject : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         //Don't update the position if it is outside the field
-        if (Mathf.Abs(this.transform.position.x) < 1.6 && Mathf.Abs(this.transform.position.z) < 1.4)
+        if (Mathf.Abs(this.transform.position.x) < 1.6 && Mathf.Abs(this.transform.position.z) < 1.3)
             position_ = this.transform.position;
 	}
 }

@@ -19,6 +19,7 @@ public class GUIScript : MonoBehaviour {
     private Field fieldScript_;
     private int cameraPosition_ = 2;
     private string[] cameraStrings_ = new string[] { "Top Left", "Top Right", "Bottom Left", "Bottom Right" };
+    private string[] tossUpCameraStrings_ = new string[] { "Red", "Blue" };
     private string[] viewModes_ = new string[] { "Match View", "Strategic View" };
     private Vector3 tlAngle_ = new Vector3(11.47146f, 135.0f, 0.0f);
     private Vector3 tlPos_ = new Vector3(-3.325411f, 1.811674f, 3.373904f);
@@ -28,6 +29,10 @@ public class GUIScript : MonoBehaviour {
     private Vector3 blPos_ = new Vector3(-3.325411f, 1.811674f, -3.373904f);
     private Vector3 brAngle_ = new Vector3(11.47146f, -45.0f, 0.0f);
     private Vector3 brPos_ = new Vector3(3.325411f, 1.811674f, -3.373904f);
+    private Vector3 redAngle_ = new Vector3(11.0583f, 9.572f, 0.0f);
+    private Vector3 redPos_ = new Vector3(-0.6641f, 2.03f, -5.2287f);
+    private Vector3 blueAngle_ = new Vector3(11.0583f, -9.572f, 0.0f);
+    private Vector3 bluePos_ = new Vector3(0.6641f, 2.03f, -5.2287f);
     private Vector3 topAngle_ = new Vector3(90, 0, 0);
     private Vector3 topPos_ = new Vector3(0, 10, 0);
     private int curMenu = 0;
@@ -47,15 +52,18 @@ public class GUIScript : MonoBehaviour {
         gateRed_ = GameObject.Find("redGate");
         gateBlue_ = GameObject.Find("blueGate");
         tracker_ = GameObject.Find("Mode Tracker");
+        if (tracker_ != null)
+            trackerScript = tracker_.GetComponent<ModeTrackingScript>();
         field_ = GameObject.FindGameObjectWithTag("field");
         fieldScript_ = field_.GetComponent<Field>();
+
+        if (trackerScript.getCameraMode == 1)
+            cameraPosition_ = 0;
 	}
 
     void OnGUI()
     {
         GUI.skin = skin;
-        if(tracker_ != null)
-            trackerScript = tracker_.GetComponent<ModeTrackingScript>();
 	    if(Application.loadedLevel == 1)
 	    {
 		    isRedRaised_ = !(gateRed_.transform.rotation.z == 0);
@@ -80,31 +88,53 @@ public class GUIScript : MonoBehaviour {
 	    if(trackerScript != null && trackerScript.showCC && trackerScript.getViewMode == ModeTrackingScript.VIEWMODE_MATCH)
 	    {
 		    GUI.Box(new Rect(Screen.width-220, 100, 220, 110), "Camera Position");
-		    cameraPosition_ = GUI.SelectionGrid(new Rect(Screen.width-210, 140, 200, 65), cameraPosition_, cameraStrings_, 2);
+            if (trackerScript.getCameraMode == 0)
+                cameraPosition_ = GUI.SelectionGrid(new Rect(Screen.width - 210, 140, 200, 65), cameraPosition_, cameraStrings_, 2);
+            else if (trackerScript.getCameraMode == 1)
+                cameraPosition_ = GUI.Toolbar(new Rect(Screen.width - 210, 140, 200, 30), cameraPosition_, tossUpCameraStrings_);
 	    }
 
         if (trackerScript.getViewMode == 0)
         {
-            switch (cameraPosition_)
+            if (trackerScript.getCameraMode == 0)
             {
-                case 0:
-                    transform.eulerAngles = tlAngle_;
-                    transform.position = tlPos_;
-                    break;
-                case 1:
-                    transform.eulerAngles = trAngle_;
-                    transform.position = trPos_;
-                    break;
-                case 2:
-                    transform.eulerAngles = blAngle_;
-                    transform.position = blPos_;
-                    break;
-                case 3:
-                    transform.eulerAngles = brAngle_;
-                    transform.position = brPos_;
-                    break;
-                default:
-                    break;
+                switch (cameraPosition_)
+                {
+                    case 0:
+                        transform.eulerAngles = tlAngle_;
+                        transform.position = tlPos_;
+                        break;
+                    case 1:
+                        transform.eulerAngles = trAngle_;
+                        transform.position = trPos_;
+                        break;
+                    case 2:
+                        transform.eulerAngles = blAngle_;
+                        transform.position = blPos_;
+                        break;
+                    case 3:
+                        transform.eulerAngles = brAngle_;
+                        transform.position = brPos_;
+                        break;
+                    default:
+                        break;
+                }
+            }
+            else if(trackerScript.getCameraMode == 1)
+            {
+                switch(cameraPosition_)
+                {
+                    case 0:
+                        transform.eulerAngles = redAngle_;
+                        transform.position = redPos_;
+                        break;
+                    case 1:
+                        transform.eulerAngles = blueAngle_;
+                        transform.position = bluePos_;
+                        break;
+                    default:
+                        break;
+                }
             }
         }
         else if (trackerScript.getViewMode == 1)
@@ -116,7 +146,10 @@ public class GUIScript : MonoBehaviour {
         CreateMenuBar();
 
         if (trackerScript.showStatusBar)
+        {
             GUI.Box(new Rect(0, Screen.height - 22, Screen.width, 22), GUI.tooltip, "status");
+            GUI.Label(new Rect(0, Screen.height - 12, Screen.width, 12), trackerScript.status, "labelRight");
+        }
     }
 
     /// <summary>

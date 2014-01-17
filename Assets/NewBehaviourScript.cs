@@ -42,7 +42,7 @@ public class NewBehaviourScript : MonoBehaviour
     {
         GUI.depth = 0;
         GUI.skin = GetComponent<vvRobotBase>().skin;
-        if(tracker != null && tracker.GetComponent<ModeTrackingScript>().showStatusBar)
-            GUI.Label(new Rect(0, Screen.height - 12, Screen.width, 12), m_MessageString, "labelRight");
+        if (tracker != null && tracker.GetComponent<ModeTrackingScript>().showStatusBar)
+            tracker.GetComponent<ModeTrackingScript>().status = m_MessageString;
     }
 }

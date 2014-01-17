@@ -54,7 +54,7 @@ public class Main_ScoopBot : vvRobotBase
                 lMotorPowerPrev_ = motor[1];
                 rMotorPowerPrev_ = motor[0];
             }
-            setMotor(scoop, -motor[2]/50);
+            setMotor(scoop, -motor[2]/2, motor[2]);
         }
 
         //stop robot if time is up
