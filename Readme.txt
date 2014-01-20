@@ -1,10 +1,10 @@
-VirtualVEX VEX Competition Simulator (v 2.0) Source Code
+VirtualVEX VEX Competition Simulator (v 3.0) Source Code
 
 This is a public alpha release for testing purposes. Not all features are yet available.
 
 Changes in this version are tracked and can be found in the program's readme.
 
-This is the latest VirtualVEX 2013 source code. This code has been made publicly
+This is the latest VirtualVEX 2014 source code. This code has been made publicly
 available for developers to edit and fix independently. Before editing the code,
 please be sure to go over this readme and ensure that you have the proper tools
 to properly edit VirtualVEX.
